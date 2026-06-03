@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>واجهة اللعبة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -13,9 +13,10 @@
             --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
             --text-primary: #ffffff;
             --text-secondary: #a0a0b0;
-            --nav-bg: #34353e; /* لون شريط التنقل المطابق للصورة */
-            --nav-active: rgba(255, 255, 255, 0.12); /* تأثير الدائرة للزر النشط */
-            --font-family: 'Tajawal', sans-serif;
+            --nav-bg: #34353e;
+            --nav-active: rgba(255, 255, 255, 0.12);
+            --font-ar: 'Tajawal', sans-serif;
+            --font-en: 'Permanent Marker', cursive;
         }
 
         * {
@@ -25,51 +26,152 @@
         }
 
         body {
-            font-family: var(--font-family);
+            font-family: var(--font-ar);
             color: var(--text-primary);
-            /* لون داكن يملأ الفراغات للشاشات الكبيرة */
             background: #050505 url('BackGround(2).png') no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             overflow-x: hidden;
+            /* السماح بالتمرير للأسفل */
+            overflow-y: auto; 
         }
 
         @media (min-width: 768px) {
-            body {
-                background-size: contain;
-            }
+            body { background-size: contain; }
         }
 
-        /* حاوية المربعات بنظام الشبكة (Grid Layout) */
+        /* 1. شاشة تسجيل الدخول (الغبش والدائرة) */
+        #login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px); /* الغبش في الخلفية */
+            -webkit-backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 0.5s ease;
+        }
+
+        .login-circle {
+            width: 280px;
+            height: 280px;
+            background: rgba(20, 20, 25, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .login-btn {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-family: var(--font-ar);
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .login-btn.guest {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .login-btn:hover {
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* 2. المحتوى الرئيسي (مخفي في البداية) */
+        #main-content {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding-top: 40px;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* اسم الموقع */
+        .game-title {
+            font-family: var(--font-en);
+            font-size: 4rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 0 #000, -1px -1px 0 #222, 0 10px 20px rgba(0,0,0,0.8);
+            margin-bottom: 20px;
+        }
+
+        /* 3. الملف الشخصي */
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .profile-img-container {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: #ffffff; /* خلفية بيضاء لتبرز خطوط القناع السوداء */
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .profile-img-container img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+
+        .profile-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        /* 4. المربعات (الشبكة) */
         .cards-container {
-            flex: 1;
             display: grid;
-            /* 
-              نظراً لأن الاتجاه RTL (من اليمين لليسار):
-              العمود الأول (يمين) هو للمستوى الثاني.
-              العمود الثاني (يسار) هو للمستوى الأول و coming soon.
-            */
             grid-template-areas: 
                 "level2 level1"
                 ". comingsoon";
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            padding: 20px;
-            padding-bottom: 120px; /* مساحة للشريط العائم */
+            padding: 0 20px;
+            padding-bottom: 120px;
             width: 100%;
             max-width: 480px;
-            margin: auto;
-            align-content: center;
         }
 
-        /* تخصيص أماكن المربعات في الشبكة */
         .card-l1 { grid-area: level1; }
         .card-l2 { grid-area: level2; }
         .card-cs { grid-area: comingsoon; }
 
-        /* التصميم الزجاجي والمربع (Square Cards) */
         .card {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
@@ -83,37 +185,28 @@
             align-items: center;
             text-align: center;
             padding: 20px 10px;
-            aspect-ratio: 1 / 1; /* تجعل العنصر مربعاً بشكل مثالي */
+            aspect-ratio: 1 / 1;
             transition: transform 0.3s ease;
         }
 
-        .card:active {
-            transform: scale(0.95);
-        }
+        .card:active { transform: scale(0.95); }
 
         .card h2 {
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 8px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .card p {
             font-size: 0.85rem;
             color: var(--text-secondary);
-            line-height: 1.4;
         }
 
-        /* تنسيق المربع الثالث (Coming Soon) */
-        .card.coming-soon {
-            background: rgba(15, 15, 20, 0.4);
-        }
-
+        .card.coming-soon { background: rgba(15, 15, 20, 0.4); }
         .card.coming-soon h2 {
             font-size: 1.4rem;
             font-weight: 900;
             text-transform: uppercase;
-            margin: 0;
             background: linear-gradient(90deg, #555, #fff, #555);
             background-size: 200% auto;
             color: transparent;
@@ -122,21 +215,20 @@
             animation: shine 3s linear infinite;
         }
 
-        /* شريط التنقل السفلي (أسلوب الكبسولة - Pill Style) */
+        /* شريط التنقل السفلي */
         .bottom-nav {
             position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--nav-bg);
-            border-radius: 50px; /* شكل الكبسولة */
+            border-radius: 50px;
             display: flex;
-            flex-direction: row; /* بالعرض */
             justify-content: space-between;
             align-items: center;
             padding: 8px 16px;
             gap: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
             z-index: 1000;
         }
 
@@ -149,7 +241,7 @@
             height: 60px;
             border-radius: 50%;
             text-decoration: none;
-            color: #8c8c95; /* لون أيقونات غير نشطة */
+            color: #8c8c95;
             transition: all 0.3s ease;
             cursor: pointer;
         }
@@ -162,7 +254,6 @@
             stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
-            transition: all 0.3s ease;
         }
 
         .nav-item span {
@@ -171,7 +262,6 @@
             font-weight: 700;
         }
 
-        /* تأثير الزر النشط (دائرة مضيئة) مطابق للصورة */
         .nav-item.active {
             background: var(--nav-active);
             color: #ffffff;
@@ -184,59 +274,79 @@
 </head>
 <body>
 
-    <main class="cards-container">
-        <!-- المربع الأول (اليسار) -->
-        <div class="card card-l1">
-            <h2>المستوى الأول</h2>
-            <p>الأساسي لاكتشاف الهويات</p>
+    <div id="login-overlay">
+        <div class="login-circle">
+            <button class="login-btn" id="btn-login" onclick="enterSite('login')">تسجيل الدخول</button>
+            <button class="login-btn guest" id="btn-guest" onclick="enterSite('guest')">الدخول كزائر</button>
+        </div>
+    </div>
+
+    <div id="main-content">
+        
+        <h1 class="game-title">MASKS</h1>
+
+        <div class="profile-section">
+            <div class="profile-img-container">
+                <img src="mask.png" id="user-avatar" alt="صورة الملف الشخصي">
+            </div>
+            <div class="profile-name" id="user-name">زائر</div>
         </div>
 
-        <!-- المربع الثاني (اليمين) -->
-        <div class="card card-l2">
-            <h2>المستوى الثاني</h2>
-            <p>متقدم بكلمات مسروقة</p>
-        </div>
+        <main class="cards-container">
+            <div class="card card-l1">
+                <h2>المستوى الأول</h2>
+                <p>الأساسي لاكتشاف الهويات</p>
+            </div>
+            <div class="card card-l2">
+                <h2>المستوى الثاني</h2>
+                <p>متقدم بكلمات مسروقة</p>
+            </div>
+            <div class="card coming-soon card-cs">
+                <h2>Coming<br>soon</h2>
+            </div>
+        </main>
+    </div>
 
-        <!-- المربع الثالث (تحت اليسار) -->
-        <div class="card coming-soon card-cs">
-            <h2>Coming<br>soon</h2>
-        </div>
-    </main>
-
-    <!-- شريط التنقل السفلي -->
     <nav class="bottom-nav">
-        <!-- الإعدادات (يمين) -->
         <a class="nav-item" id="nav-settings">
-            <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
             <span>الإعدادات</span>
         </a>
-        
-        <!-- الرئيسية (وسط نشط) -->
         <a class="nav-item active" id="nav-home">
-            <svg viewBox="0 0 24 24">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
             <span>الرئيسية</span>
         </a>
-        
-        <!-- الملف الشخصي (يسار) -->
         <a class="nav-item" id="nav-profile">
-            <svg viewBox="0 0 24 24">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
             <span>حسابي</span>
         </a>
     </nav>
 
     <script>
+        // دالة الدخول للموقع
+        function enterSite(type) {
+            const overlay = document.getElementById('login-overlay');
+            const mainContent = document.getElementById('main-content');
+            const userName = document.getElementById('user-name');
+            
+            // تحديد الاسم بناءً على طريقة الدخول
+            if (type === 'login') {
+                userName.textContent = 'Muzushi'; // ترحيب باللاعب المسجل
+            } else {
+                userName.textContent = 'زائر';
+            }
+
+            // إخفاء الغبش وإظهار المحتوى
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                mainContent.style.display = 'flex';
+            }, 500); // يتوافق مع مدة الانتقال في الـ CSS
+        }
+
+        // تفعيل أزرار الشريط السفلي
         document.addEventListener('DOMContentLoaded', () => {
             const navItems = document.querySelectorAll('.nav-item');
-
             navItems.forEach(item => {
                 item.addEventListener('click', function(e) {
                     e.preventDefault(); 
