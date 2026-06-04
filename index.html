@@ -17,61 +17,65 @@
 
     <div id="main-content">
         
-        <h1 class="game-title">MASKS</h1>
-
-        <div class="profile-card">
-            <div class="stats-avatar-row">
-                <div class="stat-block">
-                    <div class="stat-num" id="user-points">0</div>
-                    <div class="stat-label">النقاط</div>
+        <div id="home-section" class="tab-section active-tab">
+            <h1 class="game-title">MASKS</h1>
+            <main class="cards-container">
+                <div class="card card-l1">
+                    <h2>المستوى الأول</h2>
+                    <p>الأساسي لاكتشاف الهويات</p>
                 </div>
-                
-                <div class="avatar-wrapper">
-                    <img src="mask.png" alt="Profile">
+                <div class="card card-l2">
+                    <h2>المستوى الثاني</h2>
+                    <p>متقدم بكلمات مسروقة</p>
                 </div>
-                
-                <div class="stat-block">
-                    <div class="stat-num" id="user-level">1</div>
-                    <div class="stat-label">المستوى</div>
+                <div class="card coming-soon card-cs">
+                    <h2>Coming<br>soon</h2>
                 </div>
-            </div>
-
-            <div class="profile-info">
-                <div class="profile-name" id="user-name">زائر</div>
-                <div class="profile-tags" id="user-status">لم يتم اللعب بعد</div>
-            </div>
-
-            <div class="profile-actions">
-                <button class="action-btn">تعديل القناع</button>
-                <button class="action-btn">الإحصائيات</button>
-            </div>
+            </main>
         </div>
 
-        <main class="cards-container">
-            <div class="card card-l1">
-                <h2>المستوى الأول</h2>
-                <p>الأساسي لاكتشاف الهويات</p>
+        <div id="profile-section" class="tab-section">
+            <div class="profile-card">
+                <div class="stats-avatar-row">
+                    <div class="stat-block">
+                        <div class="stat-num" id="user-points">0</div>
+                        <div class="stat-label">النقاط</div>
+                    </div>
+                    
+                    <div class="avatar-wrapper">
+                        <img src="mask.png" alt="Profile">
+                    </div>
+                    
+                    <div class="stat-block">
+                        <div class="stat-num" id="user-level">1</div>
+                        <div class="stat-label">المستوى</div>
+                    </div>
+                </div>
+
+                <div class="profile-info">
+                    <div class="profile-name" id="user-name">زائر</div>
+                    <div class="profile-tags" id="user-status">لم يتم اللعب بعد</div>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="action-btn">تعديل القناع</button>
+                    <button class="action-btn">الإحصائيات</button>
+                </div>
             </div>
-            <div class="card card-l2">
-                <h2>المستوى الثاني</h2>
-                <p>متقدم بكلمات مسروقة</p>
-            </div>
-            <div class="card coming-soon card-cs">
-                <h2>Coming<br>soon</h2>
-            </div>
-        </main>
+        </div>
+        
     </div>
 
     <nav class="bottom-nav">
-        <a class="nav-item" id="nav-settings">
+        <a class="nav-item" id="nav-settings" onclick="switchTab('settings', this)">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
             <span>الإعدادات</span>
         </a>
-        <a class="nav-item active" id="nav-home">
+        <a class="nav-item active" id="nav-home" onclick="switchTab('home', this)">
             <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
             <span>الرئيسية</span>
         </a>
-        <a class="nav-item" id="nav-profile">
+        <a class="nav-item" id="nav-profile" onclick="switchTab('profile', this)">
             <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
             <span>حسابي</span>
         </a>
@@ -85,7 +89,6 @@
             const userStatus = document.getElementById('user-status');
             const userPoints = document.getElementById('user-points');
             
-            // تحديث بيانات البطاقة حسب الدخول
             if (type === 'login') {
                 userName.textContent = 'Muzushi';
                 userStatus.textContent = 'صائد الأقنعة';
@@ -99,20 +102,27 @@
             overlay.style.opacity = '0';
             setTimeout(() => {
                 overlay.style.display = 'none';
-                mainContent.style.display = 'flex';
+                mainContent.style.display = 'block'; // إظهار المحتوى الرئيسي
             }, 500);
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault(); 
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-        });
+        // دالة التبديل بين الأقسام (الرئيسية / الملف الشخصي)
+        function switchTab(tabName, element) {
+            // 1. إزالة التفعيل من كل الأقسام والأزرار
+            document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active-tab'));
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+
+            // 2. تفعيل الزر الذي تم النقر عليه
+            element.classList.add('active');
+
+            // 3. إظهار القسم المطلوب
+            if(tabName === 'home') {
+                document.getElementById('home-section').classList.add('active-tab');
+            } else if(tabName === 'profile') {
+                document.getElementById('profile-section').classList.add('active-tab');
+            }
+            // يمكن إضافة قسم الإعدادات لاحقاً بنفس الطريقة
+        }
     </script>
 </body>
 </html>
