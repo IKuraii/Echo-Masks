@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masks - Bento Box UI</title>
+    <title>MASKS - Grimdark Bento UI</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --crimson-red: #dc143c;
-            --blood-glow: rgba(220, 20, 60, 0.6);
-            --glass-bg-start: rgba(40, 40, 45, 0.4);
-            --glass-bg-end: rgba(10, 10, 12, 0.75);
-            --text-pure-white: #ffffff;
-            --bento-radius: 28px;
+            --crimson-dark: #8a0303;
+            --crimson-bright: #dc143c;
+            --blood-glow: rgba(220, 20, 60, 0.5);
+            --glass-bg: rgba(5, 5, 8, 0.65);
+            --glass-border: rgba(220, 20, 60, 0.2);
+            --text-pure: #ffffff;
+            --text-muted: #a0a0b0;
+            --bento-radius: 24px;
         }
 
         * {
@@ -27,235 +29,399 @@
             font-family: 'Tajawal', sans-serif;
             background: #050505 url('BackGround(3).png') no-repeat center center fixed;
             background-size: cover;
-            color: var(--text-pure-white);
+            color: var(--text-pure);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-bottom: 120px;
-        }
-
-        /* --- الشعار والعنوان --- */
-        header {
-            margin-top: 60px;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        h1.game-title {
-            font-family: 'Cinzel', serif;
-            font-size: 3.8rem;
-            letter-spacing: 6px;
-            color: var(--text-pure-white);
-            text-transform: uppercase;
-            text-shadow: 0 0 15px var(--blood-glow), 0 0 35px var(--crimson-red), 0 0 50px #8a0303;
-        }
-
-        /* --- تخطيط البينتو الحقيقي (Bento Box Grid) --- */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* عمودين متساويين */
-            gap: 16px;
-            width: 90%;
-            max-width: 420px; /* مقاس مثالي للهواتف */
-        }
-
-        /* المربع الأول: يأخذ العرض كاملاً (عمودين) */
-        .bento-wide {
-            grid-column: span 2;
-            min-height: 140px;
-        }
-
-        /* المربعات الصغيرة: مربعات مثالية */
-        .bento-square {
-            aspect-ratio: 1 / 1;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
         }
 
-        /* --- الزجاج الداكن المتقدم (Advanced Glassmorphism) --- */
-        .bento-item {
-            background: linear-gradient(145deg, var(--glass-bg-start) 0%, var(--glass-bg-end) 100%);
+        /* --- التخطيط الشبكي الرئيسي (Bento Box Layout) --- */
+        .layout-wrapper {
+            display: grid;
+            width: 100%;
+            max-width: 1400px;
+            height: calc(100vh - 40px);
+            gap: 20px;
+            /* التوزيع: قائمة يمنى (300px) | المنتصف (مرن) | شريط أيسر (80px) */
+            /* في الـ RTL، العمود الأول يظهر على اليمين فعلياً */
+            grid-template-columns: 320px 1fr 80px; 
+            grid-template-areas: "right center left";
+        }
+
+        /* الشاشات المتوسطة والصغيرة (الجوال) */
+        @media (max-width: 1024px) {
+            body { align-items: flex-start; }
+            .layout-wrapper {
+                height: auto;
+                grid-template-columns: 1fr;
+                grid-template-areas: 
+                    "left"
+                    "center"
+                    "right";
+            }
+        }
+
+        /* --- التصميم الزجاجي الموحد (Dark Glassmorphism) --- */
+        .glass-panel {
+            background: var(--glass-bg);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
             border-radius: var(--bento-radius);
-            padding: 24px 20px;
-            text-align: right;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            
-            /* حدود زجاجية 3D: أبيض من الأعلى وأحمر من الأسفل */
-            border-top: 1.5px solid rgba(255, 255, 255, 0.25);
-            border-bottom: 1.5px solid rgba(220, 20, 60, 0.3);
-            border-left: 1px solid rgba(255, 255, 255, 0.05);
-            border-right: 1px solid rgba(220, 20, 60, 0.15);
-            
-            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
             position: relative;
             overflow: hidden;
         }
 
-        /* تأثير التمرير والضغط (Hover & Active) */
-        .bento-item:hover, .bento-item:active {
-            transform: translateY(-5px) scale(1.02);
-            /* توهج دموي للحدود */
-            border-top-color: var(--crimson-red);
-            border-bottom-color: var(--crimson-red);
-            border-left-color: var(--crimson-red);
-            border-right-color: var(--crimson-red);
-            box-shadow: 0 15px 30px var(--blood-glow);
-        }
-
-        .bento-item h2 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-pure-white);
-        }
-
-        .bento-item p {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        /* تنسيق خاص لمربع Coming Soon */
-        .bento-square.coming-soon {
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(145deg, rgba(20, 20, 25, 0.5) 0%, rgba(5, 5, 8, 0.8) 100%);
-        }
-
-        .bento-square.coming-soon h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            margin: 0;
-            color: rgba(255, 255, 255, 0.6);
-            text-transform: uppercase;
-        }
-
-        /* --- شريط التنقل السفلي الاحترافي --- */
-        .bottom-nav {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 85%;
-            max-width: 380px;
-            height: 75px;
-            background: linear-gradient(145deg, rgba(30, 30, 35, 0.6) 0%, rgba(10, 10, 12, 0.9) 100%);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            border-bottom: 1px solid rgba(220, 20, 60, 0.2);
-            border-radius: 40px;
+        /* --- 1. الشريط الجانبي الأيسر (Nav) --- */
+        .left-sidebar {
+            grid-area: left;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            padding: 0 25px;
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-        }
-
-        .nav-item {
-            display: flex;
             justify-content: center;
-            align-items: center;
+            gap: 40px;
+            padding: 30px 0;
+        }
+
+        @media (max-width: 1024px) {
+            .left-sidebar {
+                flex-direction: row;
+                padding: 15px;
+                border-radius: 40px;
+            }
+        }
+
+        .nav-icon {
             width: 50px;
             height: 50px;
             border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            color: rgba(255, 255, 255, 0.5); /* لون الأيقونات غير النشطة */
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.5);
         }
 
-        /* تنسيق أيقونات SVG */
-        .nav-item svg {
-            width: 24px;
-            height: 24px;
+        .nav-icon svg {
+            width: 26px;
+            height: 26px;
             fill: none;
             stroke: currentColor;
-            stroke-width: 2.2;
+            stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
+        }
+
+        .nav-icon.active, .nav-icon:hover {
+            color: var(--text-pure);
+            background: rgba(220, 20, 60, 0.15);
+            box-shadow: 0 0 15px var(--blood-glow);
+            border: 1px solid var(--glass-border);
+            transform: scale(1.1);
+        }
+
+        /* --- 2. المساحة المركزية (Center Column) --- */
+        .center-column {
+            grid-area: center;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* الأزرار العلوية الطافية */
+        .top-pills {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            flex: 1;
+            min-width: 120px;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .pill:hover { background: rgba(255, 255, 255, 0.1); }
+        .pill-leave { color: #ff4d4d; }
+        .pill-copy svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+        /* منطقة الهيرو (Hero Area) */
+        .hero-area {
+            flex: 1;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            background: radial-gradient(circle at center, rgba(40,0,0,0.4) 0%, rgba(5,5,8,0.7) 100%);
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: 6rem;
+            letter-spacing: 10px;
+            color: var(--text-pure);
+            text-transform: uppercase;
+            text-shadow: 0 0 20px var(--blood-glow), 0 0 50px var(--crimson-bright), 0 0 80px var(--crimson-dark);
+            margin-bottom: 40px;
+            animation: pulse-glow 3s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { text-shadow: 0 0 10px var(--blood-glow), 0 0 30px var(--crimson-bright); }
+            to { text-shadow: 0 0 25px var(--blood-glow), 0 0 60px var(--crimson-bright), 0 0 100px var(--crimson-dark); }
+        }
+
+        .hero-info-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px 40px;
+            display: flex;
+            gap: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .info-col h3 { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px; }
+        .info-col p { font-size: 1.4rem; font-weight: 700; letter-spacing: 2px; }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 3.5rem; }
+            .hero-info-card { flex-direction: column; gap: 20px; padding: 20px; }
+        }
+
+        /* المربعات السفلية (Bottom Widgets) */
+        .bottom-widgets {
+            display: flex;
+            gap: 20px;
+        }
+
+        .widget {
+            flex: 1;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: right;
+            background: linear-gradient(135deg, rgba(30,30,35,0.4) 0%, rgba(10,10,12,0.7) 100%);
+            transition: transform 0.3s;
+        }
+
+        .widget:hover {
+            transform: translateY(-5px);
+            border-color: var(--crimson-bright);
+        }
+
+        .widget h3 { font-size: 1.3rem; margin-bottom: 5px; }
+        .widget p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* --- 3. القائمة اليمنى (Right Sidebar) --- */
+        .right-sidebar {
+            grid-area: right;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .leaderboard-card {
+            flex: 1;
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .leaderboard-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        .player-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+        }
+
+        .player-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .player-item:hover { background: rgba(255, 255, 255, 0.08); }
+
+        /* تمييز اللاعب الأول (Muzushi) */
+        .player-item.top-player {
+            background: rgba(220, 20, 60, 0.15);
+            border: 1px solid rgba(220, 20, 60, 0.4);
+            box-shadow: 0 0 10px var(--blood-glow);
+        }
+
+        .player-name { font-weight: 700; font-size: 1.1rem; }
+        .player-score { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--crimson-bright); }
+
+        .ready-action-card {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-ready {
+            width: 100%;
+            padding: 20px;
+            border-radius: 16px;
+            border: none;
+            background: linear-gradient(135deg, var(--crimson-bright) 0%, var(--crimson-dark) 100%);
+            color: var(--text-pure);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(220, 20, 60, 0.4);
             transition: all 0.3s ease;
         }
 
-        /* حالة الزر النشط (Active) */
-        .nav-item.active {
-            color: var(--text-pure-white); /* أيقونة بيضاء ناصعة */
-            background: rgba(220, 20, 60, 0.2);
-            border: 1px solid rgba(220, 20, 60, 0.5);
-            box-shadow: 0 0 20px var(--blood-glow), inset 0 0 10px rgba(220, 20, 60, 0.2);
-            transform: translateY(-8px); /* رفع للأعلى بشكل واضح */
+        .btn-ready:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(220, 20, 60, 0.8);
         }
-
-        .nav-item.active svg {
-            stroke: var(--text-pure-white);
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
-        }
+        .btn-ready:active { transform: scale(0.98); }
 
     </style>
 </head>
 <body>
 
-    <header>
-        <h1 class="game-title">Masks</h1>
-    </header>
-
-    <main class="bento-grid">
+    <div class="layout-wrapper">
         
-        <div class="bento-item bento-wide">
-            <h2>المستوى الأول</h2>
-            <p>اللعب الأساسي</p>
-        </div>
+        <nav class="left-sidebar glass-panel">
+            <div class="nav-icon">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <div class="nav-icon active">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </div>
+            <div class="nav-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </div>
+        </nav>
 
-        <div class="bento-item bento-square">
-            <h2>المستوى الثاني</h2>
-            <p>الكلمات السرية</p>
-        </div>
+        <main class="center-column">
+            
+            <div class="top-pills">
+                <div class="pill glass-panel pill-leave">مغادرة</div>
+                <div class="pill glass-panel">اللاعبين: 5/8</div>
+                <div class="pill glass-panel pill-copy">
+                    <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    رابط الغرفة
+                </div>
+            </div>
 
-        <div class="bento-item bento-square coming-soon">
-            <h2>Coming<br>Soon</h2>
-        </div>
-        
-    </main>
+            <div class="hero-area glass-panel">
+                <h1 class="hero-title">MASKS</h1>
+                
+                <div class="hero-info-card">
+                    <div class="info-col">
+                        <h3>السالفة المخفية</h3>
+                        <p>؟؟؟</p>
+                    </div>
+                    <div class="info-col">
+                        <h3>الكلمة السرية</h3>
+                        <p>***</p>
+                    </div>
+                </div>
+            </div>
 
-    <nav class="bottom-nav">
-        <div class="nav-item" id="nav-settings">
-            <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
-        </div>
-        
-        <div class="nav-item active" id="nav-home">
-            <svg viewBox="0 0 24 24">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-            </svg>
-        </div>
-        
-        <div class="nav-item" id="nav-profile">
-            <svg viewBox="0 0 24 24">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-        </div>
-    </nav>
+            <div class="bottom-widgets">
+                <div class="widget glass-panel">
+                    <h3>المستوى الأول</h3>
+                    <p>الأساسي</p>
+                </div>
+                <div class="widget glass-panel">
+                    <h3>المستوى الثاني</h3>
+                    <p>كلمات مسروقة</p>
+                </div>
+            </div>
+
+        </main>
+
+        <aside class="right-sidebar">
+            
+            <div class="leaderboard-card glass-panel">
+                <div class="leaderboard-title">
+                    <svg style="width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    قائمة اللاعبين
+                </div>
+                
+                <ul class="player-list">
+                    <li class="player-item top-player">
+                        <span class="player-name">Muzushi</span>
+                        <span class="player-score">1250</span>
+                    </li>
+                    <li class="player-item">
+                        <span class="player-name">ShadowWalker</span>
+                        <span class="player-score">980</span>
+                    </li>
+                    <li class="player-item">
+                        <span class="player-name">NightFox</span>
+                        <span class="player-score">750</span>
+                    </li>
+                    <li class="player-item">
+                        <span class="player-name">RavenX</span>
+                        <span class="player-score">420</span>
+                    </li>
+                    <li class="player-item">
+                        <span class="player-name">GrimReaper</span>
+                        <span class="player-score">100</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="ready-action-card glass-panel">
+                <button class="btn-ready">جاهز</button>
+            </div>
+
+        </aside>
+
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const navItems = document.querySelectorAll('.nav-item');
+            const navIcons = document.querySelectorAll('.nav-icon');
 
-            navItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    // إزالة التفعيل من جميع الأزرار
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    
-                    // إضافة التفعيل للزر الحالي ليرتفع ويتوهج
+            navIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    navIcons.forEach(nav => nav.classList.remove('active'));
                     this.classList.add('active');
                 });
             });
