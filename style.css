@@ -1,0 +1,327 @@
+/* استدعاء الخطوط */
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Tajawal:wght@400;500;700;900&display=swap');
+
+/* المتغيرات الأساسية */
+:root {
+    --glass-bg: rgba(15, 15, 20, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0b0;
+    --nav-bg: #34353e;
+    --nav-active: rgba(255, 255, 255, 0.12);
+    --font-ar: 'Tajawal', sans-serif;
+    --font-en: 'Permanent Marker', cursive;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-ar);
+    color: var(--text-primary);
+    background: #050505 url('BackGround(2).png') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+    body { background-size: contain; }
+}
+
+/* --- شاشة الغبش لتسجيل الدخول --- */
+#login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    transition: opacity 0.5s ease;
+}
+
+.login-circle {
+    width: 280px;
+    height: 280px;
+    background: rgba(20, 20, 25, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.login-btn {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-family: var(--font-ar);
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-btn.guest {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.login-btn:hover {
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* --- المحتوى الرئيسي --- */
+#main-content {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-top: 40px;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.game-title {
+    font-family: var(--font-en);
+    font-size: 4rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0 #000, -1px -1px 0 #222, 0 10px 20px rgba(0,0,0,0.8);
+    margin-bottom: 20px;
+}
+
+/* --- هيكل الملف الشخصي الجديد --- */
+.profile-card {
+    width: 100%;
+    max-width: 480px;
+    padding: 25px 20px;
+    margin-bottom: 30px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 35px;
+    box-shadow: var(--glass-shadow);
+}
+
+.stats-avatar-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.stat-block {
+    flex: 1;
+    text-align: center;
+}
+
+.stat-num {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.avatar-wrapper {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 0 15px;
+}
+
+.avatar-wrapper img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+}
+
+.profile-info {
+    text-align: center;
+}
+
+.profile-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.profile-tags {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+/* أزرار مكان (Follow / Message) ولكن بطابع اللعبة */
+.profile-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 12px 0;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-primary);
+    font-family: var(--font-ar);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* --- شبكة المربعات (المستويات) --- */
+.cards-container {
+    display: grid;
+    grid-template-areas: 
+        "level2 level1"
+        ". comingsoon";
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 0 20px;
+    padding-bottom: 120px;
+    width: 100%;
+    max-width: 480px;
+}
+
+.card-l1 { grid-area: level1; }
+.card-l2 { grid-area: level2; }
+.card-cs { grid-area: comingsoon; }
+
+.card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px 10px;
+    aspect-ratio: 1 / 1;
+    transition: transform 0.3s ease;
+}
+
+.card:active { transform: scale(0.95); }
+
+.card h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.card p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.card.coming-soon { background: rgba(15, 15, 20, 0.4); }
+.card.coming-soon h2 {
+    font-size: 1.4rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #555, #fff, #555);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: shine 3s linear infinite;
+}
+
+/* --- شريط التنقل السفلي --- */
+.bottom-nav {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--nav-bg);
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    gap: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    text-decoration: none;
+    color: #8c8c95;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.nav-item svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.nav-item span {
+    font-size: 0.65rem;
+    margin-top: 4px;
+    font-weight: 700;
+}
+
+.nav-item.active {
+    background: var(--nav-active);
+    color: #ffffff;
+}
+
+@keyframes shine {
+    to { background-position: 200% center; }
+}
