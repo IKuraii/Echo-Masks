@@ -91,25 +91,26 @@ body {
 /* --- المحتوى الرئيسي --- */
 #main-content {
     display: none;
+    width: 100%;
+    padding-top: 40px;
+}
+
+/* الأقسام المخفية والنشطة للتبديل بين الصفحات */
+.tab-section {
+    display: none;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding-top: 40px;
-    animation: fadeIn 0.8s ease forwards;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.tab-section.active-tab {
+    display: flex;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
-}
-
-.game-title {
-    font-family: var(--font-en);
-    font-size: 4rem;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    text-shadow: 3px 3px 0 #000, -1px -1px 0 #222, 0 10px 20px rgba(0,0,0,0.8);
-    margin-bottom: 20px;
 }
 
 /* --- هيكل الملف الشخصي الجديد --- */
