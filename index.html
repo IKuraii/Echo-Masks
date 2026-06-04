@@ -3,126 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>واجهة اللعبة</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Masks - Game Interface</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* المتغيرات لتسهيل التعديل على الألوان والتأثيرات */
+        :root {
+            --crimson-red: #dc143c;
+            --crimson-glow: rgba(220, 20, 60, 0.5);
+            --glass-bg: rgba(10, 10, 12, 0.55); /* خلفية سوداء شبه شفافة */
+            --glass-border: rgba(220, 20, 60, 0.15); /* حدود حمراء خافتة جداً */
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --bento-radius: 28px; /* انحناء أسلوب البينتو بوكس */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            /* ربط صورة الخلفية وجعلها ثابتة بملء الشاشة */
+            background: #050505 url('BackGround(2).png') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 120px; /* مساحة للشريط السفلي لتجنب تغطية المحتوى */
+        }
+
+        /* --- الشعار والعنوان --- */
+        header {
+            margin-top: 50px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1.game-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            letter-spacing: 4px;
+            color: #ffffff;
+            text-transform: uppercase;
+            /* توهج أحمر داكن يتماشى مع الخلفية */
+            text-shadow: 0 0 15px var(--crimson-glow), 0 0 30px var(--crimson-red);
+        }
+
+        /* --- تخطيط البينتو بوكس (Bento Box) --- */
+        .bento-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* المسافات المتناسقة بين المربعات */
+            width: 90%;
+            max-width: 450px; /* للحفاظ على تصميم الهاتف حتى في الشاشات الأكبر */
+        }
+
+        /* تأثير الزجاج الداكن للمربعات */
+        .bento-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--bento-radius);
+            padding: 24px 20px;
+            text-align: right;
+            transition: transform 0.2s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .bento-card:active {
+            transform: scale(0.98);
+        }
+
+        .bento-card h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .bento-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* تنسيق خاص لمربع Coming Soon */
+        .bento-card.card-cs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 130px;
+            text-align: center;
+            background: rgba(10, 10, 12, 0.3); /* شفافية أعلى قليلاً */
+        }
+
+        .bento-card.card-cs h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.7);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+            text-transform: uppercase;
+        }
+
+        /* --- شريط التنقل السفلي (شكل الكبسولة) --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            max-width: 400px;
+            height: 70px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px; /* شكل الكبسولة الممتدة */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            opacity: 0.5;
+            filter: grayscale(100%);
+        }
+
+        /* تأثير الزر النشط (Active) بتوهج أحمر */
+        .nav-item.active {
+            opacity: 1;
+            filter: grayscale(0%);
+            background: rgba(220, 20, 60, 0.15);
+            box-shadow: 0 0 15px var(--crimson-glow);
+            border: 1px solid rgba(220, 20, 60, 0.3);
+            transform: translateY(-4px); /* رفع الزر للأعلى قليلاً */
+        }
+
+    </style>
 </head>
 <body>
 
-    <div id="login-overlay">
-        <div class="login-circle">
-            <button class="login-btn" onclick="enterSite('login')">تسجيل الدخول</button>
-            <button class="login-btn guest" onclick="enterSite('guest')">الدخول كزائر</button>
-        </div>
-    </div>
+    <header>
+        <h1 class="game-title">Masks</h1>
+    </header>
 
-    <div id="main-content">
+    <main class="bento-container">
         
-        <div id="home-section" class="tab-section active-tab">
-            <h1 class="game-title">MASKS</h1>
-            <main class="cards-container">
-                <div class="card card-l1">
-                    <h2>المستوى الأول</h2>
-                    <p>الأساسي لاكتشاف الهويات</p>
-                </div>
-                <div class="card card-l2">
-                    <h2>المستوى الثاني</h2>
-                    <p>متقدم بكلمات مسروقة</p>
-                </div>
-                <div class="card coming-soon card-cs">
-                    <h2>Coming<br>soon</h2>
-                </div>
-            </main>
+        <div class="bento-card">
+            <h2>المستوى الأول</h2>
+            <p>اللعب الأساسي</p>
         </div>
 
-        <div id="profile-section" class="tab-section">
-            <div class="profile-card">
-                <div class="stats-avatar-row">
-                    <div class="stat-block">
-                        <div class="stat-num" id="user-points">0</div>
-                        <div class="stat-label">النقاط</div>
-                    </div>
-                    
-                    <div class="avatar-wrapper">
-                        <img src="mask.png" alt="Profile">
-                    </div>
-                    
-                    <div class="stat-block">
-                        <div class="stat-num" id="user-level">1</div>
-                        <div class="stat-label">المستوى</div>
-                    </div>
-                </div>
+        <div class="bento-card">
+            <h2>المستوى الثاني</h2>
+            <p>الكلمات السرية</p>
+        </div>
 
-                <div class="profile-info">
-                    <div class="profile-name" id="user-name">زائر</div>
-                    <div class="profile-tags" id="user-status">لم يتم اللعب بعد</div>
-                </div>
-
-                <div class="profile-actions">
-                    <button class="action-btn">تعديل القناع</button>
-                    <button class="action-btn">الإحصائيات</button>
-                </div>
-            </div>
+        <div class="bento-card card-cs">
+            <h2>Coming soon</h2>
         </div>
         
-    </div>
+    </main>
 
     <nav class="bottom-nav">
-        <a class="nav-item" id="nav-settings" onclick="switchTab('settings', this)">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-            <span>الإعدادات</span>
+        <a href="#" class="nav-item" id="nav-settings">
+            ⚙️
         </a>
-        <a class="nav-item active" id="nav-home" onclick="switchTab('home', this)">
-            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-            <span>الرئيسية</span>
+        
+        <a href="#" class="nav-item active" id="nav-home">
+            🏠
         </a>
-        <a class="nav-item" id="nav-profile" onclick="switchTab('profile', this)">
-            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <span>حسابي</span>
+        
+        <a href="#" class="nav-item" id="nav-profile">
+            👤
         </a>
     </nav>
 
     <script>
-        function enterSite(type) {
-            const overlay = document.getElementById('login-overlay');
-            const mainContent = document.getElementById('main-content');
-            const userName = document.getElementById('user-name');
-            const userStatus = document.getElementById('user-status');
-            const userPoints = document.getElementById('user-points');
-            
-            if (type === 'login') {
-                userName.textContent = 'Muzushi';
-                userStatus.textContent = 'صائد الأقنعة';
-                userPoints.textContent = '1250';
-            } else {
-                userName.textContent = 'زائر';
-                userStatus.textContent = 'لم يتم اللعب بعد';
-                userPoints.textContent = '0';
-            }
+        document.addEventListener('DOMContentLoaded', () => {
+            const navItems = document.querySelectorAll('.nav-item');
 
-            overlay.style.opacity = '0';
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                mainContent.style.display = 'block'; // إظهار المحتوى الرئيسي
-            }, 500);
-        }
-
-        // دالة التبديل بين الأقسام (الرئيسية / الملف الشخصي)
-        function switchTab(tabName, element) {
-            // 1. إزالة التفعيل من كل الأقسام والأزرار
-            document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active-tab'));
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-
-            // 2. تفعيل الزر الذي تم النقر عليه
-            element.classList.add('active');
-
-            // 3. إظهار القسم المطلوب
-            if(tabName === 'home') {
-                document.getElementById('home-section').classList.add('active-tab');
-            } else if(tabName === 'profile') {
-                document.getElementById('profile-section').classList.add('active-tab');
-            }
-            // يمكن إضافة قسم الإعدادات لاحقاً بنفس الطريقة
-        }
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault(); // منع الرابط من الانتقال لأعلى الصفحة
+                    
+                    // إزالة التفعيل من جميع الأزرار
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    
+                    // إضافة التفعيل للزر المضغوط
+                    this.classList.add('active');
+                });
+            });
+        });
     </script>
 </body>
 </html>
