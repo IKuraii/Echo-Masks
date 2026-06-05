@@ -1,0 +1,271 @@
+/* استدعاء الخطوط */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Tajawal:wght@400;500;700&display=swap');
+
+:root {
+    --crimson-dark: #8a0303;
+    --crimson-bright: #dc143c;
+    --blood-glow: rgba(220, 20, 60, 0.6);
+    --glass-bg: rgba(10, 10, 15, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-pure: #ffffff;
+    --text-muted: #a0a0b0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: #050505 url('BackGround(3).png') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--text-pure);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* لمنع التمرير في الصفحة الرئيسية */
+}
+
+/* التعتيم السينمائي (Vignette) */
+.vignette-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, transparent 10%, rgba(0, 0, 0, 0.85) 90%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* المحتوى الرئيسي */
+.landing-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 40px;
+}
+
+/* العنوان وحركته */
+.main-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 7rem;
+    letter-spacing: 12px;
+    text-transform: uppercase;
+    color: var(--text-pure);
+    animation: breathing-glow 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes breathing-glow {
+    0% { text-shadow: 0 0 15px rgba(220, 20, 60, 0.3), 0 0 30px rgba(138, 3, 3, 0.5); }
+    100% { text-shadow: 0 0 25px var(--blood-glow), 0 0 50px var(--crimson-bright), 0 0 80px var(--crimson-dark); }
+}
+
+/* الأزرار الأساسية */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.btn {
+    width: 100%;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-glass {
+    background: rgba(30, 30, 35, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(220, 20, 60, 0.4);
+    color: var(--text-pure);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.btn-glass:hover {
+    background: rgba(220, 20, 60, 0.2);
+    border-color: var(--crimson-bright);
+    box-shadow: 0 8px 32px var(--blood-glow);
+    transform: translateY(-3px);
+}
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-muted);
+}
+
+.btn-ghost:hover {
+    color: var(--text-pure);
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-3px);
+}
+
+/* النوافذ المنبثقة (Modals) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 40px 30px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+}
+
+.modal-overlay.active .glass-panel {
+    transform: translateY(0);
+}
+
+.modal-box h2 {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+    text-align: center;
+    color: var(--text-pure);
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.glass-input {
+    width: 100%;
+    padding: 14px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--text-pure);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.glass-input:focus {
+    outline: none;
+    border-color: var(--crimson-bright);
+    background: rgba(220, 20, 60, 0.05);
+}
+
+.glass-input option {
+    background: #111;
+    color: white;
+}
+
+.text-center { text-align: center; letter-spacing: 2px; }
+
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.confirm-btn {
+    background: linear-gradient(135deg, var(--crimson-bright) 0%, var(--crimson-dark) 100%);
+    border: none;
+}
+
+/* شريط التنقل السفلي */
+.bottom-nav {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    max-width: 380px;
+    height: 75px;
+    background: linear-gradient(145deg, rgba(20, 20, 25, 0.5) 0%, rgba(5, 5, 8, 0.9) 100%);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(220, 20, 60, 0.2);
+    border-radius: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.9);
+    z-index: 10;
+}
+
+.nav-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.4);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.nav-item svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.nav-item.active {
+    color: var(--text-pure);
+    background: rgba(220, 20, 60, 0.15);
+    border: 1px solid rgba(220, 20, 60, 0.4);
+    box-shadow: 0 0 20px var(--blood-glow);
+    transform: translateY(-8px);
+}
+
+/* استعلامات الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .main-title { font-size: 4.5rem; letter-spacing: 8px; }
+}
