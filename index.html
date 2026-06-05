@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASKS - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="vignette-overlay"></div>
+
+    <main class="landing-content">
+        <h1 class="main-title">MASKS</h1>
+        
+        <div class="action-buttons">
+            <button class="btn btn-glass" onclick="openModal('create-room-modal')">إنشاء غرفة</button>
+            <button class="btn btn-ghost" onclick="openModal('join-room-modal')">الانضمام لغرفة</button>
+        </div>
+    </main>
+
+    <div id="create-room-modal" class="modal-overlay">
+        <div class="modal-box glass-panel">
+            <h2>إنشاء غرفة جديدة</h2>
+            <div class="input-group">
+                <label>الاسم المستعار</label>
+                <input type="text" class="glass-input" placeholder="مثال: Muzushi">
+            </div>
+            <div class="input-group">
+                <label>اختر المستوى</label>
+                <select class="glass-input">
+                    <option value="1">المستوى الأول (أساسي)</option>
+                    <option value="2">المستوى الثاني (متقدم)</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-glass confirm-btn" onclick="closeModal('create-room-modal')">تأكيد وانطلاق</button>
+                <button class="btn btn-ghost" onclick="closeModal('create-room-modal')">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="join-room-modal" class="modal-overlay">
+        <div class="modal-box glass-panel">
+            <h2>الانضمام لغرفة</h2>
+            <div class="input-group">
+                <label>رمز الغرفة</label>
+                <input type="text" class="glass-input text-center" placeholder="أدخل الرمز المكون من 6 أرقام">
+            </div>
+            <div class="input-group">
+                <label>الاسم المستعار</label>
+                <input type="text" class="glass-input" placeholder="مثال: Muzushi">
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-glass confirm-btn" onclick="closeModal('join-room-modal')">دخول الغرفة</button>
+                <button class="btn btn-ghost" onclick="closeModal('join-room-modal')">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+        </div>
+        
+        <div class="nav-item active">
+            <svg viewBox="0 0 24 24">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+        </div>
+        
+        <div class="nav-item">
+            <svg viewBox="0 0 24 24">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
