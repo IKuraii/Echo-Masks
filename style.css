@@ -1,13 +1,19 @@
-/* المتغيرات الأساسية */
+/* ================= المتغيرات الأساسية (النسخة الأحادية مع توهج أحمر) ================= */
 :root {
-    /* تدرج الزجاج من الأسود الشفاف إلى الأحمر الداكن الشفاف */
-    --glass-grad-start: rgba(5, 5, 5, 0.75);
-    --glass-grad-end: rgba(100, 0, 0, 0.35);
-    /* الحدود الحمراء المتوهجة */
-    --border-glow: rgba(255, 0, 0, 0.3);
+    /* خلفية زجاجية سوداء شبه شفافة */
+    --glass-bg: rgba(10, 10, 10, 0.75);
     
+    /* حدود زجاجية تعكس اللون الفضي/الأبيض */
+    --glass-border: rgba(255, 255, 255, 0.15);
+    
+    /* لون التميز (الأحمر الدموي لعيون الثعلب) */
+    --accent-crimson: #8B0000;
+    --accent-glow: rgba(139, 0, 0, 0.5); /* توهج أحمر شفاف */
+    
+    /* النصوص والأيقونات باللون الأبيض النقي */
     --text-primary: #ffffff;
-    --text-secondary: #c2c2c2;
+    --text-secondary: rgba(255, 255, 255, 0.6);
+    
     --font-main: 'Tajawal', sans-serif;
     --radius-large: 32px;
     --radius-medium: 24px;
@@ -21,8 +27,9 @@
 
 body {
     font-family: var(--font-main);
-    background-color: #050505;
-    background-image: url('BackGround(3).png');
+    background-color: #000000;
+    /* تأكد من وضع اسم صورتك الأحادية الجديدة هنا */
+    background-image: url('BackGround(3).png'); 
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -63,19 +70,20 @@ body {
 
 /* ================= التأثير الزجاجي الموحد لجميع المربعات ================= */
 .glass-card {
-    background: linear-gradient(135deg, var(--glass-grad-start) 0%, var(--glass-grad-end) 100%);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--border-glow);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-large);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 0, 0, 0.05);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
+/* التوهج الأحمر الخفيف عند التمرير */
 .glass-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 0, 0, 0.15);
-    border-color: rgba(255, 0, 0, 0.5); 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--accent-glow);
+    border-color: var(--accent-crimson); 
 }
 
 /* ================= 1. القائمة اليسرى (شريط التنقل في الكمبيوتر) ================= */
@@ -97,7 +105,7 @@ body {
     height: 56px;
     border-radius: 50%;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-secondary);
     transition: all 0.3s;
 }
 
@@ -110,11 +118,12 @@ body {
     stroke-linecap: round;
 }
 
+/* تفعيل اللون الأحمر للأيقونة النشطة أو عند التمرير */
 .nav-item.active, .nav-item:hover {
     color: var(--text-primary);
-    background: rgba(255, 0, 0, 0.2);
-    border: 1px solid var(--border-glow);
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+    background: rgba(139, 0, 0, 0.2);
+    border: 1px solid var(--accent-crimson);
+    box-shadow: 0 0 15px var(--accent-glow);
 }
 
 /* ================= 2. منطقة المنتصف (اللعب) ================= */
@@ -143,11 +152,12 @@ body {
     overflow: hidden;
 }
 
+/* إضاءة بيضاء فضية خفيفة في زاوية المستطيل الأول */
 .level-primary::before {
     content: '';
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at top right, rgba(255, 0, 0, 0.15) 0%, transparent 60%);
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
     pointer-events: none;
 }
 
@@ -168,7 +178,7 @@ body {
     font-size: 0.9rem;
     font-weight: 700;
     margin-bottom: auto;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--glass-border);
 }
 
 /* المربعين الصغار */
@@ -189,7 +199,7 @@ body {
 }
 
 .coming-soon {
-    background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(30,0,0,0.6) 100%);
+    background: rgba(0, 0, 0, 0.85); /* تعتيم أقوى ليدل على أنه غير متاح */
 }
 
 .coming-soon h3 {
@@ -215,13 +225,14 @@ body {
     font-size: 1.1rem;
 }
 
+/* حالة النتيجة مع لمسة حمراء خفيفة جداً */
 .game-status {
-    background: rgba(255, 0, 0, 0.2);
+    background: rgba(139, 0, 0, 0.2);
     padding: 12px 24px;
     border-radius: 16px;
     font-weight: 700;
-    border: 1px solid var(--border-glow);
-    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    border: 1px solid var(--accent-crimson);
+    box-shadow: 0 0 10px var(--accent-glow);
 }
 
 /* ================= 3. القائمة اليمنى (الأصدقاء) ================= */
@@ -238,7 +249,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding-bottom: 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--glass-border);
 }
 
 .friends-header h3 {
@@ -264,27 +275,29 @@ body {
 }
 
 .friend-item:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .friend-avatar {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     position: relative;
+    border: 1px solid var(--glass-border);
 }
 
+/* نقطة الاتصال باللون الأحمر الدموي */
 .online-dot {
     position: absolute;
     bottom: 2px;
     right: 2px;
     width: 12px;
     height: 12px;
-    background-color: #ff3333;
+    background-color: var(--accent-crimson);
     border: 2px solid #000;
     border-radius: 50%;
-    box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+    box-shadow: 0 0 8px var(--accent-glow);
 }
 
 .friend-info h4 {
@@ -322,39 +335,36 @@ body {
         justify-content: space-around;
         padding: 0 20px;
         border-radius: 32px 32px 0 0;
-        border-bottom: none;
-        z-index: 1000;
-        background: linear-gradient(180deg, rgba(20, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.95) 100%); 
-        box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
+        /* خلفية داكنة جداً للشريط السفلي لعدم التداخل مع المحتوى */
+        background: rgba(5, 5, 5, 0.95); 
+        border-top: 1px solid var(--glass-border);
+        box-shadow: 0 -10px 40px rgba(0,0,0,0.9);
     }
 }
 
 /* ================= التجاوب المدمج مع الجوال (Compact Mobile View) < 768px ================= */
 @media (max-width: 768px) {
-    /* 1. تصغير المسافات العامة */
     .app-layout {
         gap: 16px;
         padding: 16px;
-        padding-bottom: 85px; /* مساحة تناسب الشريط السفلي الأنحف */
+        padding-bottom: 85px; 
     }
 
-    /* 2. تصغير الخطوط والمسافات الداخلية لمنطقة اللعب */
     .main-content {
         gap: 16px;
     }
 
     .levels-grid {
         gap: 16px;
-        grid-template-columns: 1fr 1fr; /* إبقاء المربعين متجاورين */
+        grid-template-columns: 1fr 1fr; 
     }
 
     .top-header h1 {
         font-size: 1.5rem;
     }
 
-    /* 3. تصغير أحجام المربعات (الارتفاع والمسافات الداخلية) */
     .level-primary {
-        min-height: 180px; /* تقليص الارتفاع بشكل ملحوظ */
+        min-height: 180px; 
         padding: 24px;
     }
 
@@ -369,7 +379,7 @@ body {
 
     .level-secondary {
         padding: 16px;
-        aspect-ratio: auto; /* إزالة نسبة التناسب ليأخذ مساحة أقل بالطول */
+        aspect-ratio: auto; 
         min-height: 130px;
     }
 
@@ -382,10 +392,9 @@ body {
         width: 32px !important;
     }
 
-    /* تصغير بطاقة آخر لعبة */
     .last-game-card {
         padding: 20px;
-        flex-direction: column; /* ترتيب العناصر عمودياً لتوفير المساحة */
+        flex-direction: column; 
         align-items: flex-start;
         gap: 12px;
     }
@@ -401,10 +410,9 @@ body {
     .game-status {
         padding: 8px 16px;
         font-size: 0.9rem;
-        align-self: flex-start; /* محاذاة لليسار/اليمين بناءً على اللغة */
+        align-self: flex-start; 
     }
 
-    /* تصغير قائمة الأصدقاء */
     .friends-sidebar {
         padding: 20px 16px;
         gap: 16px;
@@ -423,9 +431,8 @@ body {
         font-size: 0.95rem;
     }
 
-    /* 4. تنحيف الشريط السفلي */
     .sidebar-nav {
-        height: 65px; /* شريط أنحف بكثير */
+        height: 65px; 
         border-radius: 24px 24px 0 0;
         padding: 0 10px;
     }
