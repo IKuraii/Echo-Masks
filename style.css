@@ -21,7 +21,6 @@
 
 body {
     font-family: var(--font-main);
-    /* إضافة صورة الخلفية مع التثبيت والغطاء الكامل */
     background-color: #050505;
     background-image: url('BackGround(3).png');
     background-size: cover;
@@ -32,11 +31,10 @@ body {
     overflow-x: hidden;
 }
 
-/* ================= التخطيط والمحاذاة العلوية (Grid Alignment) ================= */
+/* ================= التخطيط والمحاذاة العلوية (Desktop Layout) ================= */
 .app-layout {
     display: grid;
     grid-template-columns: 280px 1fr 90px;
-    /* صف مخصص للهيدر، وصف مخصص للمربعات */
     grid-template-rows: auto 1fr;
     grid-template-areas: 
         ". header ."
@@ -46,7 +44,6 @@ body {
     max-width: 1600px;
     margin: 0 auto;
     min-height: 100vh;
-    /* هذا الأمر يضمن أن جميع المربعات تبدأ من نفس الخط وتتمدد للأسفل بشكل متساوي */
     align-items: stretch; 
 }
 
@@ -66,11 +63,9 @@ body {
 
 /* ================= التأثير الزجاجي الموحد لجميع المربعات ================= */
 .glass-card {
-    /* تدرج من الأسود الشفاف للأحمر الداكن الشفاف */
     background: linear-gradient(135deg, var(--glass-grad-start) 0%, var(--glass-grad-end) 100%);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    /* حدود حمراء متوهجة خفيفة 1px */
     border: 1px solid var(--border-glow);
     border-radius: var(--radius-large);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 0, 0, 0.05);
@@ -80,16 +75,15 @@ body {
 .glass-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 0, 0, 0.15);
-    border-color: rgba(255, 0, 0, 0.5); /* زيادة توهج الحدود عند التمرير */
+    border-color: rgba(255, 0, 0, 0.5); 
 }
 
-/* ================= 1. القائمة اليسرى (شريط التنقل) ================= */
+/* ================= 1. القائمة اليسرى (شريط التنقل في الكمبيوتر) ================= */
 .sidebar-nav {
     grid-area: nav;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* التوسيع من الأعلى مع ترك مسافة متناسقة للأسفل */
     justify-content: flex-start;
     padding-top: 40px;
     gap: 32px;
@@ -149,7 +143,6 @@ body {
     overflow: hidden;
 }
 
-/* إضافة لمعة داخلية إضافية للمستطيل الأكبر */
 .level-primary::before {
     content: '';
     position: absolute;
@@ -288,7 +281,7 @@ body {
     right: 2px;
     width: 12px;
     height: 12px;
-    background-color: #ff3333; /* لون متصل أحمر يتماشى مع الثيم */
+    background-color: #ff3333;
     border: 2px solid #000;
     border-radius: 50%;
     box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
@@ -305,7 +298,7 @@ body {
     margin-top: 4px;
 }
 
-/* ================= التجاوب مع الجوال (Mobile) ================= */
+/* ================= التجاوب مع التابلت (Tablet) ================= */
 @media (max-width: 1024px) {
     .app-layout {
         grid-template-columns: 1fr;
@@ -313,12 +306,12 @@ body {
             "header"
             "main"
             "friends";
-        padding-bottom: 120px;
+        padding-bottom: 100px;
     }
 
     .top-header { justify-content: center; text-align: center; }
 
-    /* شريط سفلي ثابت */
+    /* تحويل الشريط الجانبي إلى شريط سفلي */
     .sidebar-nav {
         position: fixed;
         bottom: 0;
@@ -334,15 +327,116 @@ body {
         background: linear-gradient(180deg, rgba(20, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.95) 100%); 
         box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
     }
+}
 
-    .nav-item {
-        width: 50px;
-        height: 50px;
+/* ================= التجاوب المدمج مع الجوال (Compact Mobile View) < 768px ================= */
+@media (max-width: 768px) {
+    /* 1. تصغير المسافات العامة */
+    .app-layout {
+        gap: 16px;
+        padding: 16px;
+        padding-bottom: 85px; /* مساحة تناسب الشريط السفلي الأنحف */
     }
 
-    @media (max-width: 600px) {
-        .levels-grid { grid-template-columns: 1fr; }
-        .level-secondary { aspect-ratio: auto; min-height: 180px; }
-        .last-game-card { flex-direction: column; align-items: flex-start; gap: 16px; }
+    /* 2. تصغير الخطوط والمسافات الداخلية لمنطقة اللعب */
+    .main-content {
+        gap: 16px;
+    }
+
+    .levels-grid {
+        gap: 16px;
+        grid-template-columns: 1fr 1fr; /* إبقاء المربعين متجاورين */
+    }
+
+    .top-header h1 {
+        font-size: 1.5rem;
+    }
+
+    /* 3. تصغير أحجام المربعات (الارتفاع والمسافات الداخلية) */
+    .level-primary {
+        min-height: 180px; /* تقليص الارتفاع بشكل ملحوظ */
+        padding: 24px;
+    }
+
+    .level-primary h2 {
+        font-size: 1.8rem;
+    }
+
+    .level-badge {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    .level-secondary {
+        padding: 16px;
+        aspect-ratio: auto; /* إزالة نسبة التناسب ليأخذ مساحة أقل بالطول */
+        min-height: 130px;
+    }
+
+    .level-secondary h3 {
+        font-size: 1.3rem;
+        margin-bottom: 8px;
+    }
+
+    .level-secondary svg {
+        width: 32px !important;
+    }
+
+    /* تصغير بطاقة آخر لعبة */
+    .last-game-card {
+        padding: 20px;
+        flex-direction: column; /* ترتيب العناصر عمودياً لتوفير المساحة */
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .last-game-info h3 {
+        font-size: 1.2rem;
+    }
+
+    .last-game-info p {
+        font-size: 0.95rem;
+    }
+
+    .game-status {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        align-self: flex-start; /* محاذاة لليسار/اليمين بناءً على اللغة */
+    }
+
+    /* تصغير قائمة الأصدقاء */
+    .friends-sidebar {
+        padding: 20px 16px;
+        gap: 16px;
+    }
+
+    .friends-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .friend-avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .friend-info h4 {
+        font-size: 0.95rem;
+    }
+
+    /* 4. تنحيف الشريط السفلي */
+    .sidebar-nav {
+        height: 65px; /* شريط أنحف بكثير */
+        border-radius: 24px 24px 0 0;
+        padding: 0 10px;
+    }
+
+    .nav-item {
+        width: 45px;
+        height: 45px;
+    }
+
+    .nav-item svg {
+        width: 24px;
+        height: 24px;
     }
 }
