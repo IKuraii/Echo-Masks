@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // الانتقال الفعلي لصفحة اللوبي بعد عرض رسالة الترحيب بـ 2.5 ثانية
             setTimeout(() => {
-                window.location.href = 'lobby.html';
+                window.location.href = 'rooms.html';
             }, 2500); 
 
         }, 1000); 
