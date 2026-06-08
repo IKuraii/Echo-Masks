@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const maskCircles = document.querySelectorAll('.mask-circle');
+    const mainAvatarBtn = document.getElementById('mainAvatarBtn');
+    const masksPopup = document.getElementById('masksPopup');
+    const maskOptions = document.querySelectorAll('.mask-option');
     const loginBtn = document.getElementById('loginBtn');
     const nameInput = document.getElementById('playerName');
     const loginBox = document.getElementById('loginBox');
@@ -8,12 +10,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let selectedMask = null;
 
-    // منطق اختيار القناع
-    maskCircles.forEach(circle => {
-        circle.addEventListener('click', function() {
-            maskCircles.forEach(c => c.classList.remove('selected'));
-            this.classList.add('selected');
+    // فتح وإغلاق قائمة الأقنعة عند الضغط على الدائرة الرئيسية
+    mainAvatarBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // منع إغلاق القائمة فوراً
+        masksPopup.classList.toggle('show');
+    });
+
+    // إغلاق القائمة عند النقر في أي مكان آخر بالشاشة
+    document.addEventListener('click', (e) => {
+        if (!masksPopup.contains(e.target) && !mainAvatarBtn.contains(e.target)) {
+            masksPopup.classList.remove('show');
+        }
+    });
+
+    // منطق اختيار القناع من القائمة المنبثقة
+    maskOptions.forEach(option => {
+        option.addEventListener('click', function(e) {
+            e.stopPropagation(); // منع انتقال الحدث
+            
             selectedMask = this.getAttribute('data-mask'); 
+            
+            // نسخ أيقونة الـ SVG من القناع المختار
+            const selectedSvg = this.querySelector('.mask-svg').outerHTML;
+            
+            // وضع الأيقونة داخل الدائرة الرئيسية وتعديل خصائصها لتناسب الحجم الجديد
+            mainAvatarBtn.innerHTML = selectedSvg;
+            const newSvg = mainAvatarBtn.querySelector('.mask-svg');
+            newSvg.style.width = '55px';
+            newSvg.style.height = '55px';
+            newSvg.style.color = 'var(--snow-white)';
+            
+            // إضافة تأثير التحديد للدائرة الرئيسية
+            mainAvatarBtn.classList.add('has-mask');
+            
+            // إخفاء القائمة ورسالة الخطأ
+            masksPopup.classList.remove('show');
             errorMsg.classList.remove('show');
         });
     });
@@ -43,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // الانتقال الفعلي لصفحة اللوبي بعد عرض رسالة الترحيب بـ 2.5 ثانية
             setTimeout(() => {
-                window.location.href = 'rooms.html';
+                window.location.href = 'lobby.html';
             }, 2500); 
 
         }, 1000); 
