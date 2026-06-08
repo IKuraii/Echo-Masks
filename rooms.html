@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game UI - Grimdark Glassmorphism</title>
+    <title>Echo Masks - Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="lobby-style.css">
 </head>
 <body>
 
     <div class="app-layout">
         
         <header class="top-header">
-            <h1>مساء الخير، Muzushi</h1>
+            <h1>مساء الخير، <span id="playerNameDisplay">[اسم اللاعب]</span></h1>
         </header>
         
         <nav class="sidebar-nav glass-card">
@@ -51,10 +51,10 @@
             <div class="glass-card last-game-card">
                 <div class="last-game-info">
                     <h3>آخر لعبة</h3>
-                    <p>الكلمة: قناع | النتيجة: فوز</p>
+                    <p id="lastGameDetails">[حالة آخر جولة ستظهر هنا]</p>
                 </div>
-                <div class="game-status">
-                    +150 نقطة
+                <div class="game-status" id="lastGamePoints">
+                    [النقاط]
                 </div>
             </div>
         </main>
@@ -62,43 +62,38 @@
         <aside class="friends-sidebar glass-card">
             <div class="friends-header">
                 <h3>الأصدقاء المتصلين</h3>
-                <span style="color: var(--text-secondary);">4</span>
+                <span id="onlineFriendsCount" style="color: var(--text-secondary);">[0]</span>
             </div>
             
-            <div class="friends-list">
+            <div class="friends-list" id="friendsListContainer">
+                
                 <div class="friend-item">
                     <div class="friend-avatar"><div class="online-dot"></div></div>
                     <div class="friend-info">
-                        <h4>ShadowWalker</h4>
-                        <p>في غرفة الانتظار</p>
+                        <h4 class="friend-name">[اسم الصديق 1]</h4>
+                        <p class="friend-status">[حالة الاتصال]</p>
                     </div>
                 </div>
+
                 <div class="friend-item">
                     <div class="friend-avatar"><div class="online-dot"></div></div>
                     <div class="friend-info">
-                        <h4>NightFox</h4>
-                        <p>يلعب المستوى الأول</p>
+                        <h4 class="friend-name">[اسم الصديق 2]</h4>
+                        <p class="friend-status">[حالة الاتصال]</p>
                     </div>
                 </div>
-                <div class="friend-item">
-                    <div class="friend-avatar"><div class="online-dot"></div></div>
-                    <div class="friend-info">
-                        <h4>RavenX</h4>
-                        <p>متاح</p>
-                    </div>
-                </div>
-                <div class="friend-item">
-                    <div class="friend-avatar"><div class="online-dot"></div></div>
-                    <div class="friend-info">
-                        <h4>GrimReaper</h4>
-                        <p>متاح</p>
-                    </div>
-                </div>
+
             </div>
         </aside>
 
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function setActive(clickedElement) {
+            const items = document.querySelectorAll('.nav-item');
+            items.forEach(item => item.classList.remove('active'));
+            clickedElement.classList.add('active');
+        }
+    </script>
 </body>
 </html>
