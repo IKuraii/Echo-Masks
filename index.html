@@ -18,27 +18,44 @@
             <p>تستر خلف قناعك للعبور</p>
         </div>
 
-        <div class="masks-container">
-            <div class="mask-circle" data-mask="fox">
-                <svg viewBox="0 0 24 24" class="mask-icon">
-                    <path d="M22 3l-4.5 4.5c.3.9.5 1.9.5 3 0 5.5-6 10.5-6 10.5S6 16 6 10.5c0-1.1.2-2.1.5-3L2 3l5 2.5c1.4-1 3.1-1.5 5-1.5s3.6.5 5 1.5L22 3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                    <path d="M9 10l-2 1m8-1l2 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <div class="avatar-section">
+            <div class="main-avatar" id="mainAvatarBtn">
+                <svg viewBox="0 0 24 24" class="add-icon" id="addIcon">
+                    <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
             </div>
-            
-            <div class="mask-circle" data-mask="wolf">
-                <svg viewBox="0 0 24 24" class="mask-icon">
-                    <path d="M12 22s-8-5.5-8-12C4 5.5 8 2 12 2s8 3.5 8 8c0 6.5-8 12-8 12z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                    <path d="M12 16v2m-3-6l2 1m4-1l-2 1M6 8l3 2m6-2l-3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-            </div>
-            
-            <div class="mask-circle" data-mask="lion">
-                <svg viewBox="0 0 24 24" class="mask-icon">
-                    <path d="M12 4a8 8 0 00-8 8c0 5 4 9 8 9s8-4 8-9a8 8 0 00-8-8z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                    <path d="M12 2v2m0 18v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m18 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M9 11h.01M15 11h.01M12 15v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
+
+            <div class="masks-popup" id="masksPopup">
+                
+                <div class="mask-option" data-mask="fox">
+                    <svg viewBox="0 0 64 64" class="mask-svg">
+                        <path d="M32 58L12 40V20l10-14 10 10 10-10 10 14v20L32 58z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+                        <path d="M22 30c0-4 4-6 6-4s2 6-6 4zM42 30c0-4-4-6-6-4s-2 6 6 4z" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M32 44v8" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M12 20c8 5 12 5 20 5s12 0 20-5" fill="none" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </div>
+                
+                <div class="mask-option" data-mask="wolf">
+                    <svg viewBox="0 0 64 64" class="mask-svg">
+                        <path d="M32 60l-12-16-10-4V20l6-12 16 12 16-12 6 12v20l-10 4L32 60z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+                        <path d="M18 28l6 4-2-6zM46 28l-6 4 2-6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M32 42v10l-4-4h8l-4 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M32 20v15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                
+                <div class="mask-option" data-mask="lion">
+                    <svg viewBox="0 0 64 64" class="mask-svg">
+                        <path d="M32 60c-15 0-24-10-24-25V15l10-5 14-6 14 6 10 5v20C56 50 47 60 32 60z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+                        <circle cx="24" cy="30" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="40" cy="30" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M32 40l-5 8h10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M8 25c0 0-6 5-4 15s8 10 8 10M56 25c0 0 6 5 4 15s-8 10-8 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </div>
+
             </div>
         </div>
 
