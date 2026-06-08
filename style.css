@@ -1,18 +1,13 @@
-/* ================= المتغيرات الأساسية (النسخة الأحادية مع توهج أحمر) ================= */
+/* ================= المتغيرات الأساسية (الهوية الثلجية) ================= */
 :root {
-    /* خلفية زجاجية سوداء شبه شفافة */
+    --snow-white: #FAFAFA;
+    --snow-glow: rgba(250, 250, 250, 0.6);
+    
     --glass-bg: rgba(10, 10, 10, 0.75);
+    --glass-border: rgba(250, 250, 250, 0.15);
     
-    /* حدود زجاجية تعكس اللون الفضي/الأبيض */
-    --glass-border: rgba(255, 255, 255, 0.15);
-    
-    /* لون التميز (الأحمر الدموي لعيون الثعلب) */
-    --accent-crimson: #8B0000;
-    --accent-glow: rgba(139, 0, 0, 0.5); /* توهج أحمر شفاف */
-    
-    /* النصوص والأيقونات باللون الأبيض النقي */
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.6);
+    --text-primary: #FAFAFA;
+    --text-secondary: rgba(250, 250, 250, 0.5);
     
     --font-main: 'Tajawal', sans-serif;
     --radius-large: 32px;
@@ -28,8 +23,8 @@
 body {
     font-family: var(--font-main);
     background-color: #000000;
-    /* تأكد من وضع اسم صورتك الأحادية الجديدة هنا */
-    background-image: url('BackGround(3).png'); 
+    /* تأكد من وضع صورة الخلفية الأحادية الصحيحة هنا */
+    background-image: url('BackGround(4).png'); 
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -38,7 +33,7 @@ body {
     overflow-x: hidden;
 }
 
-/* ================= التخطيط والمحاذاة العلوية (Desktop Layout) ================= */
+/* ================= التخطيط والمحاذاة ================= */
 .app-layout {
     display: grid;
     grid-template-columns: 280px 1fr 90px;
@@ -68,7 +63,7 @@ body {
     text-shadow: 0 4px 10px rgba(0,0,0,0.8);
 }
 
-/* ================= التأثير الزجاجي الموحد لجميع المربعات ================= */
+/* ================= التأثير الزجاجي الموحد ================= */
 .glass-card {
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
@@ -79,14 +74,14 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* التوهج الأحمر الخفيف عند التمرير */
+/* التوهج الثلجي عند التمرير */
 .glass-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--accent-glow);
-    border-color: var(--accent-crimson); 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 20px var(--snow-glow);
+    border-color: var(--snow-white); 
 }
 
-/* ================= 1. القائمة اليسرى (شريط التنقل في الكمبيوتر) ================= */
+/* ================= الشريط الجانبي ================= */
 .sidebar-nav {
     grid-area: nav;
     display: flex;
@@ -118,15 +113,15 @@ body {
     stroke-linecap: round;
 }
 
-/* تفعيل اللون الأحمر للأيقونة النشطة أو عند التمرير */
+/* الأيقونة النشطة باللون الأبيض الساطع */
 .nav-item.active, .nav-item:hover {
     color: var(--text-primary);
-    background: rgba(139, 0, 0, 0.2);
-    border: 1px solid var(--accent-crimson);
-    box-shadow: 0 0 15px var(--accent-glow);
+    background: rgba(250, 250, 250, 0.15);
+    border: 1px solid var(--snow-white);
+    box-shadow: 0 0 15px var(--snow-glow);
 }
 
-/* ================= 2. منطقة المنتصف (اللعب) ================= */
+/* ================= منطقة اللعب ================= */
 .main-content {
     grid-area: main;
     display: flex;
@@ -140,7 +135,6 @@ body {
     gap: 24px;
 }
 
-/* المستطيل الكبير */
 .level-primary {
     grid-column: span 2;
     min-height: 280px;
@@ -152,12 +146,11 @@ body {
     overflow: hidden;
 }
 
-/* إضاءة بيضاء فضية خفيفة في زاوية المستطيل الأول */
 .level-primary::before {
     content: '';
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+    background: radial-gradient(circle at top right, rgba(250, 250, 250, 0.1) 0%, transparent 60%);
     pointer-events: none;
 }
 
@@ -172,7 +165,7 @@ body {
 
 .level-badge {
     align-self: flex-start;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(250, 250, 250, 0.1);
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 0.9rem;
@@ -181,7 +174,6 @@ body {
     border: 1px solid var(--glass-border);
 }
 
-/* المربعين الصغار */
 .level-secondary {
     aspect-ratio: 1 / 1;
     display: flex;
@@ -199,14 +191,14 @@ body {
 }
 
 .coming-soon {
-    background: rgba(0, 0, 0, 0.85); /* تعتيم أقوى ليدل على أنه غير متاح */
+    background: rgba(0, 0, 0, 0.85); 
 }
 
 .coming-soon h3 {
     color: var(--text-secondary);
 }
 
-/* مربع آخر لعبة */
+/* آخر لعبة */
 .last-game-card {
     display: flex;
     justify-content: space-between;
@@ -225,17 +217,16 @@ body {
     font-size: 1.1rem;
 }
 
-/* حالة النتيجة مع لمسة حمراء خفيفة جداً */
 .game-status {
-    background: rgba(139, 0, 0, 0.2);
+    background: rgba(250, 250, 250, 0.15);
     padding: 12px 24px;
     border-radius: 16px;
     font-weight: 700;
-    border: 1px solid var(--accent-crimson);
-    box-shadow: 0 0 10px var(--accent-glow);
+    border: 1px solid var(--snow-white);
+    box-shadow: 0 0 10px var(--snow-glow);
 }
 
-/* ================= 3. القائمة اليمنى (الأصدقاء) ================= */
+/* ================= القائمة اليمنى (الأصدقاء) ================= */
 .friends-sidebar {
     grid-area: friends;
     padding: 32px 20px;
@@ -275,29 +266,29 @@ body {
 }
 
 .friend-item:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(250, 250, 250, 0.08);
 }
 
 .friend-avatar {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(250, 250, 250, 0.15);
     position: relative;
     border: 1px solid var(--glass-border);
 }
 
-/* نقطة الاتصال باللون الأحمر الدموي */
+/* نقطة الاتصال باللون الأبيض الثلجي */
 .online-dot {
     position: absolute;
     bottom: 2px;
     right: 2px;
     width: 12px;
     height: 12px;
-    background-color: var(--accent-crimson);
+    background-color: var(--snow-white);
     border: 2px solid #000;
     border-radius: 50%;
-    box-shadow: 0 0 8px var(--accent-glow);
+    box-shadow: 0 0 8px var(--snow-glow);
 }
 
 .friend-info h4 {
@@ -311,7 +302,7 @@ body {
     margin-top: 4px;
 }
 
-/* ================= التجاوب مع التابلت (Tablet) ================= */
+/* ================= التجاوب (Mobile & Tablet) ================= */
 @media (max-width: 1024px) {
     .app-layout {
         grid-template-columns: 1fr;
@@ -324,7 +315,6 @@ body {
 
     .top-header { justify-content: center; text-align: center; }
 
-    /* تحويل الشريط الجانبي إلى شريط سفلي */
     .sidebar-nav {
         position: fixed;
         bottom: 0;
@@ -335,14 +325,12 @@ body {
         justify-content: space-around;
         padding: 0 20px;
         border-radius: 32px 32px 0 0;
-        /* خلفية داكنة جداً للشريط السفلي لعدم التداخل مع المحتوى */
         background: rgba(5, 5, 5, 0.95); 
         border-top: 1px solid var(--glass-border);
         box-shadow: 0 -10px 40px rgba(0,0,0,0.9);
     }
 }
 
-/* ================= التجاوب المدمج مع الجوال (Compact Mobile View) < 768px ================= */
 @media (max-width: 768px) {
     .app-layout {
         gap: 16px;
@@ -350,100 +338,29 @@ body {
         padding-bottom: 85px; 
     }
 
-    .main-content {
-        gap: 16px;
-    }
+    .main-content { gap: 16px; }
+    .levels-grid { gap: 16px; grid-template-columns: 1fr 1fr; }
+    .top-header h1 { font-size: 1.5rem; }
 
-    .levels-grid {
-        gap: 16px;
-        grid-template-columns: 1fr 1fr; 
-    }
+    .level-primary { min-height: 180px; padding: 24px; }
+    .level-primary h2 { font-size: 1.8rem; }
+    .level-badge { font-size: 0.8rem; padding: 6px 12px; }
 
-    .top-header h1 {
-        font-size: 1.5rem;
-    }
+    .level-secondary { padding: 16px; aspect-ratio: auto; min-height: 130px; }
+    .level-secondary h3 { font-size: 1.3rem; margin-bottom: 8px; }
+    .level-secondary svg { width: 32px !important; }
 
-    .level-primary {
-        min-height: 180px; 
-        padding: 24px;
-    }
+    .last-game-card { padding: 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+    .last-game-info h3 { font-size: 1.2rem; }
+    .last-game-info p { font-size: 0.95rem; }
+    .game-status { padding: 8px 16px; font-size: 0.9rem; align-self: flex-start; }
 
-    .level-primary h2 {
-        font-size: 1.8rem;
-    }
+    .friends-sidebar { padding: 20px 16px; gap: 16px; }
+    .friends-header h3 { font-size: 1.1rem; }
+    .friend-avatar { width: 40px; height: 40px; }
+    .friend-info h4 { font-size: 0.95rem; }
 
-    .level-badge {
-        font-size: 0.8rem;
-        padding: 6px 12px;
-    }
-
-    .level-secondary {
-        padding: 16px;
-        aspect-ratio: auto; 
-        min-height: 130px;
-    }
-
-    .level-secondary h3 {
-        font-size: 1.3rem;
-        margin-bottom: 8px;
-    }
-
-    .level-secondary svg {
-        width: 32px !important;
-    }
-
-    .last-game-card {
-        padding: 20px;
-        flex-direction: column; 
-        align-items: flex-start;
-        gap: 12px;
-    }
-
-    .last-game-info h3 {
-        font-size: 1.2rem;
-    }
-
-    .last-game-info p {
-        font-size: 0.95rem;
-    }
-
-    .game-status {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-        align-self: flex-start; 
-    }
-
-    .friends-sidebar {
-        padding: 20px 16px;
-        gap: 16px;
-    }
-
-    .friends-header h3 {
-        font-size: 1.1rem;
-    }
-
-    .friend-avatar {
-        width: 40px;
-        height: 40px;
-    }
-
-    .friend-info h4 {
-        font-size: 0.95rem;
-    }
-
-    .sidebar-nav {
-        height: 65px; 
-        border-radius: 24px 24px 0 0;
-        padding: 0 10px;
-    }
-
-    .nav-item {
-        width: 45px;
-        height: 45px;
-    }
-
-    .nav-item svg {
-        width: 24px;
-        height: 24px;
-    }
+    .sidebar-nav { height: 65px; border-radius: 24px 24px 0 0; padding: 0 10px; }
+    .nav-item { width: 45px; height: 45px; }
+    .nav-item svg { width: 24px; height: 24px; }
 }
