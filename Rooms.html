@@ -15,8 +15,13 @@
         <div class="organic-grid">
             
             <aside class="col-right-sidebar">
-                <div class="avatar-circle glass-panel">
-                    <span id="playerAvatarInitial"></span>
+                <div class="avatar-circle glass-panel" id="playerAvatarContainer">
+                    <svg viewBox="0 0 64 64" class="avatar-svg" id="currentAvatarMask">
+                        <path d="M32 58L12 40V20l10-14 10 10 10-10 10 14v20L32 58z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+                        <path d="M22 30c0-4 4-6 6-4s2 6-6 4zM42 30c0-4-4-6-6-4s-2 6 6 4z" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M32 44v8" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M12 20c8 5 12 5 20 5s12 0 20-5" fill="none" stroke="currentColor" stroke-width="2"/>
+                    </svg>
                 </div>
                 
                 <div class="nav-capsule glass-panel">
@@ -36,15 +41,13 @@
                         <button class="icon-btn protruding-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M5 12l7-7M5 12l7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
                     </div>
 
-                    <div class="arsenal-box organic-glass">
-                        <div class="mask-btn glass-btn" data-mask="fox">
-                            <svg viewBox="0 0 64 64" class="mask-svg"><path d="M32 58L12 40V20l10-14 10 10 10-10 10 14v20L32 58z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M22 30c0-4 4-6 6-4s2 6-6 4zM42 30c0-4-4-6-6-4s-2 6 6 4z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M32 44v8" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M12 20c8 5 12 5 20 5s12 0 20-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                    <div class="stats-box organic-glass">
+                        <div class="stats-header">
+                            <span class="stats-title">مستوى الرنين: <strong id="resonanceLevelText"></strong></span>
+                            <span class="stats-fragments" id="soulFragmentsText"></span>
                         </div>
-                        <div class="mask-btn glass-btn active-mask" data-mask="lion">
-                            <svg viewBox="0 0 64 64" class="mask-svg"><path d="M32 60c-15 0-24-10-24-25V15l10-5 14-6 14 6 10 5v20C56 50 47 60 32 60z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><circle cx="24" cy="30" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="40" cy="30" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M32 40l-5 8h10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 25c0 0-6 5-4 15s8 10 8 10M56 25c0 0 6 5 4 15s-8 10-8 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-                        </div>
-                        <div class="mask-btn glass-btn" data-mask="wolf">
-                            <svg viewBox="0 0 64 64" class="mask-svg"><path d="M32 60l-12-16-10-4V20l6-12 16 12 16-12 6 12v20l-10 4L32 60z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M18 28l6 4-2-6zM46 28l-6 4 2-6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M32 42v10l-4-4h8l-4 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M32 20v15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="resonanceProgressFill"></div>
                         </div>
                     </div>
 
