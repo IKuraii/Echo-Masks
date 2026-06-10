@@ -1,11 +1,11 @@
 :root {
     --snow-white: #FAFAFA;
     --snow-glow: rgba(250, 250, 250, 0.4);
-    --glass-bg: rgba(10, 10, 10, 0.85); /* أسود داكن جداً للزجاج */
+    --glass-bg: rgba(10, 10, 10, 0.85); 
     --glass-border: rgba(250, 250, 250, 0.15);
     --text-pure: #FAFAFA;
-    --text-muted: rgba(250, 250, 250, 0.5);
-    --radius-organic: 40px; /* انحناء عضوي واسع */
+    --text-muted: rgba(250, 250, 250, 0.6);
+    --radius-organic: 40px; 
     --radius-medium: 24px;
     --font-main: 'Tajawal', sans-serif;
 }
@@ -31,7 +31,7 @@ body {
     z-index: -1;
 }
 
-/* ================= التخطيط الهيكلي الرئيسي (Grid Layout) ================= */
+/* ================= التخطيط الهيكلي الرئيسي ================= */
 .dashboard-wrapper {
     padding: 30px;
     max-width: 1700px;
@@ -44,14 +44,12 @@ body {
 .organic-grid {
     width: 100%;
     display: grid;
-    /* التوزيع: اليمين (الشريط)، الوسط (الكيان متمدد)، اليسار (المربعات) */
     grid-template-columns: 80px 1fr 340px; 
     gap: 24px;
     height: 85vh;
     min-height: 700px;
 }
 
-/* التنسيق الزجاجي الموحد */
 .glass-panel {
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
@@ -60,7 +58,7 @@ body {
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
 }
 
-/* ================= 1. العمود الأيمن (الشريط الجانبي المفصول) ================= */
+/* ================= 1. العمود الأيمن (الشريط الجانبي) ================= */
 .col-right-sidebar {
     display: flex;
     flex-direction: column;
@@ -72,10 +70,15 @@ body {
     width: 60px; height: 60px;
     border-radius: 50%;
     display: flex; justify-content: center; align-items: center;
-    font-weight: 900; font-size: 1.2rem;
     box-shadow: 0 0 20px var(--snow-glow);
-    color: var(--snow-white);
     cursor: pointer;
+    background: rgba(10, 10, 10, 0.6);
+}
+
+.avatar-svg {
+    width: 34px; height: 34px;
+    color: var(--snow-white);
+    filter: drop-shadow(0 0 8px var(--snow-glow));
 }
 
 .nav-capsule {
@@ -94,7 +97,7 @@ body {
 .nav-icon svg { width: 24px; height: 24px; }
 .nav-icon.active, .nav-icon:hover { color: var(--snow-white); background: rgba(250,250,250,0.1); box-shadow: 0 0 15px var(--snow-glow); }
 
-/* ================= 2. العمود الأوسط (المساحة المركزية والتجويفات) ================= */
+/* ================= 2. العمود الأوسط (المساحة المركزية) ================= */
 .col-center-main {
     position: relative;
     height: 100%;
@@ -109,11 +112,15 @@ body {
     background-size: cover;
     background-position: center top;
     border: 1px solid var(--glass-border);
-    display: flex; justify-content: center; align-items: center;
-    overflow: visible; /* مهم جداً للسماح للتجويفات بالظهور والتداخل */
+    display: flex;
+    overflow: visible; 
 }
 
+/* زر دخول الظلال في الزاوية السفلية اليمنى المطلقة */
 .snow-glow-btn {
+    position: absolute;
+    bottom: 30px; 
+    right: 30px;
     background: rgba(10, 10, 10, 0.6);
     backdrop-filter: blur(10px);
     border: 1px solid var(--snow-white);
@@ -123,11 +130,11 @@ body {
     font-family: inherit; font-size: 1.2rem; font-weight: 800;
     cursor: pointer; transition: all 0.3s ease;
     box-shadow: 0 0 20px var(--snow-glow), inset 0 0 15px rgba(250,250,250,0.1);
-    transform: translateY(20px); /* موازنة بصرية */
+    z-index: 10;
 }
 .snow-glow-btn:hover { background: var(--snow-white); color: #000; box-shadow: 0 0 40px var(--snow-glow); }
 
-/* --- هندسة التجويفات العضوية (Organic Cutouts via Pseudo-elements) --- */
+/* --- هندسة التجويفات العضوية --- */
 .organic-glass {
     position: absolute;
     background: var(--glass-bg);
@@ -137,26 +144,23 @@ body {
 
 /* أ) التجويف الأيمن (يحتضن السهم) */
 .protrusion-wrapper {
-    top: 50%; right: 0; /* ملتصق باليمين */
+    top: 50%; right: 0; 
     transform: translateY(-50%);
     padding: 15px 15px 15px 25px;
     border-top-left-radius: var(--radius-organic);
     border-bottom-left-radius: var(--radius-organic);
     border: 1px solid var(--glass-border);
-    border-right: none; /* يندمج مع الحافة */
+    border-right: none; 
     display: flex; justify-content: center; align-items: center;
 }
 
-/* الانحناء العضوي العلوي للتجويف الأيمن */
 .protrusion-wrapper::before {
     content: ''; position: absolute;
     bottom: 100%; right: -1px; width: 40px; height: 40px;
     border-bottom-right-radius: var(--radius-organic);
-    /* دمج الظل الأسود لمحاكاة الخلفية مع ظل أبيض خفيف لمحاكاة الحدود */
     box-shadow: 0 20px 0 0 var(--glass-bg), 1px 20px 0 0 var(--glass-border);
 }
 
-/* الانحناء العضوي السفلي للتجويف الأيمن */
 .protrusion-wrapper::after {
     content: ''; position: absolute;
     top: 100%; right: -1px; width: 40px; height: 40px;
@@ -171,59 +175,69 @@ body {
 }
 .protruding-arrow svg { width: 24px; height: 24px; }
 
-/* ب) التجويف السفلي الأيسر (ترسانة الأقنعة) */
-.arsenal-box {
-    bottom: 0; left: 0; /* ملتصق بأسفل اليسار */
-    width: 75%; height: 120px;
+/* ب) التجويف السفلي الأيسر (إحصائيات اللاعب) */
+.stats-box {
+    bottom: 0; left: 0; 
+    width: 65%; height: 110px;
     border-top-right-radius: var(--radius-organic);
     border: 1px solid var(--glass-border);
-    border-bottom: none; border-left: none; /* يندمج مع الحافة */
-    display: flex; gap: 16px; padding: 0 30px; align-items: center;
+    border-bottom: none; border-left: none; 
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 12px; padding: 0 40px;
 }
 
-/* الانحناء العضوي (العلوي الأيسر) لترسانة الأقنعة */
-.arsenal-box::before {
+.stats-box::before {
     content: ''; position: absolute;
     bottom: 100%; left: -1px; width: 40px; height: 40px;
     border-bottom-left-radius: var(--radius-organic);
     box-shadow: 0 20px 0 0 var(--glass-bg), -1px 20px 0 0 var(--glass-border);
 }
 
-/* الانحناء العضوي (السفلي الأيمن) لترسانة الأقنعة */
-.arsenal-box::after {
+.stats-box::after {
     content: ''; position: absolute;
     bottom: -1px; left: 100%; width: 40px; height: 40px;
     border-bottom-left-radius: var(--radius-organic);
     box-shadow: -20px 0 0 0 var(--glass-bg), -20px 1px 0 0 var(--glass-border);
 }
 
-/* أزرار الأقنعة داخل التجويف */
-.glass-btn {
-    flex: 1; height: 70px;
-    background: rgba(250, 250, 250, 0.03);
+/* تصميم شريط الرنين وشظايا الأرواح */
+.stats-header {
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+.stats-title {
+    font-size: 1.1rem; color: var(--text-muted);
+}
+.stats-title strong {
+    color: var(--snow-white); font-weight: 800; font-family: sans-serif; letter-spacing: 1px;
+}
+
+.stats-fragments {
+    font-size: 0.95rem; font-weight: 700; color: var(--text-muted);
+}
+
+.progress-track {
+    width: 100%; height: 8px;
+    background: rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(250, 250, 250, 0.1);
-    border-radius: var(--radius-medium);
-    display: flex; justify-content: center; align-items: center;
-    cursor: pointer; transition: all 0.3s ease;
+    border-radius: 10px; overflow: hidden;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.8);
 }
-.mask-svg { width: 36px; height: 36px; color: var(--text-muted); transition: color 0.3s ease; }
-.glass-btn:hover, .active-mask {
-    background: rgba(250, 250, 250, 0.1); border-color: var(--snow-white);
-    box-shadow: 0 0 15px var(--snow-glow);
+
+.progress-fill {
+    height: 100%; background: var(--snow-white);
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--snow-glow), inset 0 0 5px rgba(0,0,0,0.5);
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.glass-btn:hover .mask-svg, .active-mask .mask-svg { color: var(--snow-white); }
 
 /* ================= 3. العمود الأيسر (المربعات المكدسة) ================= */
 .col-left-stacked {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    display: flex; flex-direction: column; gap: 24px;
 }
 
 .bento-card {
-    border-radius: var(--radius-organic);
-    padding: 30px;
-    display: flex; flex-direction: column;
+    border-radius: var(--radius-organic); padding: 30px; display: flex; flex-direction: column;
 }
 
 .gates-card { flex: 1; }
@@ -256,22 +270,23 @@ body {
 /* ================= التجاوب مع الشاشات (Responsive) ================= */
 @media (max-width: 1200px) {
     .organic-grid { grid-template-columns: 80px 1fr 280px; }
+    .stats-box { width: 85%; }
 }
 
 @media (max-width: 992px) {
     .dashboard-wrapper { padding: 16px; padding-bottom: 100px; }
     .organic-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto;
+        grid-template-columns: 1fr; grid-template-rows: auto auto auto;
         height: auto; gap: 20px;
     }
-    .col-center-main { min-height: 400px; }
+    .col-center-main { min-height: 450px; }
     
-    /* تعطيل الانحناءات المعقدة في الجوال واستخدام مربعات مكدسة عادية */
-    .protrusion-wrapper, .arsenal-box { position: static; width: 100%; border-radius: var(--radius-organic); border: 1px solid var(--glass-border); transform: none; margin-top: 16px; }
-    .protrusion-wrapper::before, .protrusion-wrapper::after, .arsenal-box::before, .arsenal-box::after { display: none; }
+    /* تعطيل الانحناءات المعقدة في الجوال */
+    .protrusion-wrapper, .stats-box { position: static; width: 100%; height: auto; padding: 25px; border-radius: var(--radius-organic); border: 1px solid var(--glass-border); transform: none; margin-top: 16px; }
+    .protrusion-wrapper::before, .protrusion-wrapper::after, .stats-box::before, .stats-box::after { display: none; }
     .entity-showcase { flex-direction: column; background-position: center; justify-content: center; padding: 30px; }
-    .protrusion-wrapper { padding: 20px; }
+    
+    .snow-glow-btn { position: static; margin-top: auto; }
     
     /* تحويل الشريط الجانبي إلى سفلي */
     .col-right-sidebar {
