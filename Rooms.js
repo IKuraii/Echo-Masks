@@ -1,24 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
-    // 1. البيانات الديناميكية (Dynamic Injection)
+    // 1. البيانات الديناميكية للإحصائيات والسجل
     // ==========================================
     
     const playerData = {
-        name: "Shadow", // يمكن تغييره أو سحبه من قاعدة البيانات لاحقاً
+        name: "Shadow",
+        stats: {
+            resonanceLevel: 14,
+            resonanceProgress: 68, // النسبة المئوية للامتلاء (%)
+            soulFragments: "1,540"
+        },
         history: [
             { opponent: "الخصم المجهول", result: "انتصار سحيق", isWin: true },
             { opponent: "حارس الظلال", result: "انسحاب", isWin: false }
         ]
     };
 
-    // تعبئة دائرة الأفتار بالحرف الأول من الاسم
-    const avatarInitial = document.getElementById('playerAvatarInitial');
-    if(avatarInitial && playerData.name) {
-        avatarInitial.textContent = playerData.name.charAt(0).toUpperCase();
-    }
+    // أ) تعبئة إحصائيات اللاعب في التجويف السفلي
+    document.getElementById('resonanceLevelText').textContent = `Lv. ${playerData.stats.resonanceLevel}`;
+    document.getElementById('soulFragmentsText').textContent = `شظايا الأرواح: ${playerData.stats.soulFragments}`;
+    
+    // تحريك شريط التقدم بلمسة انسيابية بعد تحميل الصفحة
+    setTimeout(() => {
+        const progressFill = document.getElementById('resonanceProgressFill');
+        if (progressFill) {
+            progressFill.style.width = `${playerData.stats.resonanceProgress}%`;
+        }
+    }, 300);
 
-    // تعبئة سجل المواجهات (مربوطة بـ IDs فارغة في الـ HTML)
+    // ب) حقن بيانات سجل المواجهات
     document.getElementById('historyName1').textContent = `ضد: ${playerData.history[0].opponent}`;
     document.getElementById('historyResult1').textContent = playerData.history[0].result;
     document.getElementById('historyResult1').style.color = playerData.history[0].isWin ? 'var(--snow-white)' : 'var(--text-muted)';
@@ -28,18 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('historyResult2').style.color = playerData.history[1].isWin ? 'var(--snow-white)' : 'var(--text-muted)';
 
     // ==========================================
-    // 2. التفاعلات البصرية (UI Interactions)
+    // 2. التفاعلات البصرية
     // ==========================================
     
-    // تفعيل أزرار ترسانة الأقنعة
-    const maskBtns = document.querySelectorAll('.mask-btn');
-    maskBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            maskBtns.forEach(b => b.classList.remove('active-mask'));
-            this.classList.add('active-mask');
-        });
-    });
-
     // تفعيل أيقونات الشريط الجانبي
     const navIcons = document.querySelectorAll('.nav-icon');
     navIcons.forEach(icon => {
