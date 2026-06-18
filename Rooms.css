@@ -1,4 +1,4 @@
-/* ================= متغيرات CSS الديناميكية (الوضع الافتراضي: المظلم) ================= */
+/* ================= المتغيرات الديناميكية ================= */
 :root {
     --body-bg: #000000;
     --bg-filter: blur(25px) brightness(0.4);
@@ -14,16 +14,16 @@
     --font-main: 'Tajawal', sans-serif;
 }
 
-/* ================= التبديل للوضع المضيء الكريستالي الصافي ================= */
+/* ================= الوضع المضيء الكريستالي ================= */
 body.light-theme {
-    --body-bg: #FAFAFA; /* أبيض ثلجي مطفي */
-    --bg-filter: blur(25px) brightness(1.2) opacity(0.12); /* تلاشي ناعم جداً للخلفية الأساسية */
-    --glass-bg: rgba(225, 240, 255, 0.35); /* زجاج كريستالي شفاف بلمسة سماوية باردة */
-    --glass-border: rgba(120, 165, 200, 0.35); /* حدود كريستالية فضية متناسقة */
-    --text-pure: #161D26; /* لون داكن بارد لضمان مقروئية النصوص الفائقة */
-    --text-muted: rgba(22, 29, 38, 0.6);
-    --snow-white: #161D26;
-    --snow-glow: rgba(120, 165, 200, 0.5);
+    --body-bg: #FAFAFA;
+    --bg-filter: blur(25px) brightness(1.1) opacity(0.15); 
+    --glass-bg: rgba(220, 235, 250, 0.35); 
+    --glass-border: rgba(100, 150, 200, 0.4); 
+    --text-pure: #0f172a; 
+    --text-muted: rgba(15, 23, 42, 0.65);
+    --snow-white: #0f172a;
+    --snow-glow: rgba(100, 150, 200, 0.5);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,208 +37,184 @@ body {
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* ================= الخلفية الانسيابية ================= */
 .bg-blur {
-    position: fixed;
-    top: -50px; left: -50px; right: -50px; bottom: -50px;
+    position: fixed; top: -50px; left: -50px; right: -50px; bottom: -50px;
     background-image: url('BackGround(4).png');
-    background-size: cover;
-    background-position: center;
-    filter: var(--bg-filter);
-    z-index: -1;
+    background-size: cover; background-position: center;
+    filter: var(--bg-filter); z-index: -1;
     transition: filter 0.5s ease;
 }
 
-/* ================= هندسة توزيع Bento Grid ================= */
+/* ================= تخطيط Bento Grid ================= */
 .dashboard-wrapper {
-    padding: 30px;
-    max-width: 1700px;
-    margin: 0 auto;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+    padding: 30px; max-width: 1700px; margin: 0 auto;
+    min-height: 100vh; display: flex; align-items: center;
 }
 
 .organic-grid {
-    width: 100%;
-    display: grid;
+    width: 100%; display: grid;
     grid-template-columns: 80px 1fr 340px; 
-    gap: 24px;
-    height: 85vh;
-    min-height: 700px;
+    gap: 24px; height: 85vh; min-height: 700px;
 }
 
 .glass-panel {
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
     border: 1px solid var(--glass-border);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-    transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.3s ease;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    transition: background 0.5s ease, border-color 0.5s ease;
 }
 
-/* ================= 1. العمود الأيمن (الشريط الجانبي) ================= */
-.col-right-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    align-items: center;
-}
+/* ================= 1. العمود الأيمن ================= */
+.col-right-sidebar { display: flex; flex-direction: column; gap: 24px; align-items: center; }
 
 .avatar-circle {
-    width: 60px; height: 60px;
-    border-radius: 50%;
+    width: 60px; height: 60px; border-radius: 50%;
     display: flex; justify-content: center; align-items: center;
-    box-shadow: 0 0 20px var(--snow-glow);
-    cursor: pointer;
+    box-shadow: 0 0 20px var(--snow-glow); cursor: pointer;
 }
-
-.avatar-svg {
-    width: 32px; height: 32px;
-    color: var(--text-pure);
-}
+.avatar-svg { width: 32px; height: 32px; color: var(--text-pure); }
 
 .nav-capsule {
-    border-radius: var(--radius-organic);
-    display: flex; flex-direction: column;
+    border-radius: var(--radius-organic); display: flex; flex-direction: column;
     padding: 20px 10px; gap: 24px;
 }
 
 .nav-icon {
-    width: 50px; height: 50px;
-    border-radius: 50%;
+    position: relative; width: 50px; height: 50px; border-radius: 50%;
     display: flex; justify-content: center; align-items: center;
     color: var(--text-muted); cursor: pointer; transition: all 0.3s;
 }
-
 .nav-icon svg { width: 24px; height: 24px; }
 .nav-icon.active, .nav-icon:hover { 
-    color: var(--text-pure); 
-    background: rgba(250,250,250,0.12); 
-    box-shadow: 0 0 15px var(--snow-glow); 
+    color: var(--text-pure); background: rgba(250,250,250,0.12); box-shadow: 0 0 15px var(--snow-glow); 
 }
 
-/* ================= 2. العمود الأوسط (الكيان والتجويفات العضوية) ================= */
-.col-center-main {
-    position: relative;
-    height: 100%;
-    display: flex;
+/* --- نافذة الإعدادات العائمة (Popover) --- */
+.settings-popover {
+    position: absolute; top: 50%; right: calc(100% + 20px); /* تنبثق لليسار بجانب الترس */
+    transform: translateY(-50%) translateX(20px);
+    width: 250px; padding: 20px; border-radius: var(--radius-medium);
+    opacity: 0; visibility: hidden; z-index: 1000;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    cursor: default;
 }
+.settings-popover.show {
+    opacity: 1; visibility: visible;
+    transform: translateY(-50%) translateX(0);
+    pointer-events: auto;
+}
+.popover-title { font-size: 1.1rem; font-weight: 800; color: var(--text-pure); margin-bottom: 16px; text-align: right; }
+.setting-row { display: flex; justify-content: space-between; align-items: center; }
+.setting-label { font-size: 0.95rem; font-weight: 500; color: var(--text-pure); }
 
+/* زر التبديل (Toggle Switch) */
+.theme-switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+.theme-switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+    position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--glass-border);
+    transition: .4s; border-radius: 34px;
+}
+.slider:before {
+    position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
+    background-color: var(--text-pure); transition: .4s; border-radius: 50%;
+    box-shadow: 0 0 8px var(--snow-glow);
+}
+input:checked + .slider { background-color: rgba(100, 150, 200, 0.2); border-color: var(--glass-border); }
+input:checked + .slider:before { transform: translateX(-24px); }
+
+/* ================= 2. العمود الأوسط (الكيان والقصات العضوية) ================= */
+.col-center-main { position: relative; height: 100%; display: flex; }
+
+/* هندسة المساحة المركزية:
+  نستخدم clip-path لقص المستطيل من أسفل اليسار لاحتضان الإحصائيات
+  ونستخدم mask-image لقص دائرة من اليمين لاحتضان السهم.
+*/
 .entity-showcase {
-    position: relative;
-    width: 100%; height: 100%;
+    position: relative; width: 100%; height: 100%;
     border-radius: var(--radius-organic);
-    background-image: url('MainTheme.png');
-    background-size: cover;
-    background-position: center top;
-    border: 1px solid var(--glass-border);
-    display: flex;
-    overflow: visible; 
-    transition: border-color 0.5s ease;
+    background-image: url('MainTheme.png'); /* تتبدل برمجياً */
+    background-size: cover; background-position: center top;
+    
+    /* 1. قص شكل (L) للمربع السفلي (ارتفاع صندوق الإحصائيات 90px) */
+    clip-path: polygon(
+        0 0, 100% 0, 100% 100%,
+        60% 100%, 60% calc(100% - 90px),
+        0 calc(100% - 90px)
+    );
+    /* 2. قص دائري من اليمين لسهم التنقل */
+    -webkit-mask-image: radial-gradient(circle at 100% 50%, transparent 35px, black 36px);
+    mask-image: radial-gradient(circle at 100% 50%, transparent 35px, black 36px);
+    
+    transition: background-image 0.5s ease;
 }
 
-body.light-theme .entity-showcase {
-    box-shadow: inset 0 0 100px rgba(255,255,255,0.2);
-}
+body.light-theme .entity-showcase { box-shadow: inset 0 0 100px rgba(255,255,255,0.4); }
 
-/* --- زر الدخول المحدث: زجاجي بالكامل وبأبعاد عريضة ونحيفة --- */
+/* زر الدخول الزجاجي الشفاف (أعرض وأقل ارتفاعاً) */
 .snow-glow-btn {
-    position: absolute;
-    bottom: 30px; 
-    right: 30px;
-    background: rgba(255, 255, 255, 0.02); /* شفافية تامة لإظهار ما خلفه */
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid var(--glass-border);
-    color: var(--text-pure);
-    padding: 12px 65px; /* أبعاد أعرض وأقل ارتفاعاً */
-    border-radius: 30px;
-    font-family: inherit; font-size: 1.1rem; font-weight: 800;
-    cursor: pointer; transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    z-index: 10;
+    position: absolute; bottom: 30px; right: 30px;
+    background: transparent; /* شفاف بالكامل لإظهار الكيان */
+    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    border: 1px solid transparent; color: var(--snow-white);
+    padding: 10px 80px; /* عريض ونحيف */
+    border-radius: 30px; font-family: inherit; font-size: 1.2rem; font-weight: 800;
+    cursor: pointer; transition: all 0.3s ease; z-index: 10;
 }
-.snow-glow-btn:hover { 
-    background: rgba(250, 250, 250, 0.12);
-    border-color: var(--text-pure); 
-    box-shadow: 0 0 25px var(--snow-glow); 
+.snow-glow-btn:hover {
+    border-color: var(--snow-white); background: rgba(250, 250, 250, 0.05);
+    box-shadow: 0 0 20px var(--snow-glow), inset 0 0 15px rgba(250,250,250,0.2);
 }
 
-/* --- هندسة التجويفات العضوية المتداخلة --- */
-.organic-glass {
-    position: absolute;
-    background: var(--glass-bg);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    transition: background 0.5s ease, border-color 0.5s ease;
+/* السهم الأيمن الذي يجلس داخل التجويف المفرغ */
+.protrusion-arrow-box {
+    position: absolute; top: 50%; right: -25px; transform: translateY(-50%);
+    display: flex; justify-content: center; align-items: center; z-index: 5;
 }
-
-/* تجويف السهم الأيمن */
-.protrusion-wrapper {
-    top: 50%; right: 0; 
-    transform: translateY(-50%);
-    padding: 15px 15px 15px 25px;
-    border-top-left-radius: var(--radius-organic);
-    border-bottom-left-radius: var(--radius-organic);
-    border: 1px solid var(--glass-border);
-    border-right: none; 
-    display: flex; justify-content: center; align-items: center;
-}
-
-.protrusion-wrapper::before {
-    content: ''; position: absolute; bottom: 100%; right: -1px; width: 40px; height: 40px;
-    border-bottom-right-radius: var(--radius-organic);
-    box-shadow: 0 20px 0 0 var(--glass-bg), 1px 20px 0 0 var(--glass-border);
-    transition: box-shadow 0.5s ease;
-}
-
-.protrusion-wrapper::after {
-    content: ''; position: absolute; top: 100%; right: -1px; width: 40px; height: 40px;
-    border-top-right-radius: var(--radius-organic);
-    box-shadow: 0 -20px 0 0 var(--glass-bg), 1px -20px 0 0 var(--glass-border);
-    transition: box-shadow 0.5s ease;
-}
-
 .protruding-arrow {
     width: 50px; height: 50px; border-radius: 50%;
     background: var(--text-pure); color: var(--body-bg);
     border: none; cursor: pointer; box-shadow: 0 0 20px var(--snow-glow);
 }
+.protruding-arrow svg { width: 24px; height: 24px; }
 
-/* تجويف صندوق الإحصائيات (تم تقليص الارتفاع والبادينج ليكون أنحف ورشيقاً) */
+/* صندوق الإحصائيات الأنحف */
 .stats-box {
-    bottom: 0; left: 0; 
-    width: 60%; 
-    height: 85px; /* تقليص الارتفاع الإجمالي ليكون أنحف وأجمل */
+    position: absolute; bottom: 0; left: 0;
+    width: 60%; height: 90px; /* ارتفاع أنحف */
     border-top-right-radius: var(--radius-organic);
-    border: 1px solid var(--glass-border);
-    border-bottom: none; border-left: none; 
+    border-top: 1px solid var(--glass-border);
+    border-right: 1px solid var(--glass-border);
     display: flex; flex-direction: column; justify-content: center;
-    gap: 8px; padding: 0 35px;
+    gap: 8px; padding: 0 30px; z-index: 5;
 }
 
-.stats-box::before {
-    content: ''; position: absolute; bottom: 100%; left: -1px; width: 40px; height: 40px;
+/* --- دمج الانحناءات الزجاجية الوهمية لتنعيم الحواف (Organic Magic) --- */
+.curve-filler-top {
+    position: absolute; bottom: 100%; left: 0; width: 40px; height: 40px;
     border-bottom-left-radius: var(--radius-organic);
+    /* يصنع ظلاً زجاجياً يملأ الزاوية العلوية اليسرى للصندوق */
     box-shadow: 0 20px 0 0 var(--glass-bg), -1px 20px 0 0 var(--glass-border);
-    transition: box-shadow 0.5s ease;
+    pointer-events: none; transition: box-shadow 0.5s ease;
 }
-
-.stats-box::after {
-    content: ''; position: absolute; bottom: -1px; left: 100%; width: 40px; height: 40px;
+.curve-filler-right {
+    position: absolute; bottom: 0; left: 100%; width: 40px; height: 40px;
     border-bottom-left-radius: var(--radius-organic);
+    /* يصنع ظلاً زجاجياً يملأ الزاوية السفلية اليمنى للصندوق */
     box-shadow: -20px 0 0 0 var(--glass-bg), -20px 1px 0 0 var(--glass-border);
-    transition: box-shadow 0.5s ease;
+    pointer-events: none; transition: box-shadow 0.5s ease;
 }
 
+/* نصوص وشريط الإحصائيات */
 .stats-header { display: flex; justify-content: space-between; align-items: center; }
-.stats-title { font-size: 1rem; color: var(--text-muted); }
-.stats-title strong { color: var(--text-pure); font-weight: 800; }
-.stats-fragments { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); }
+.stats-title { font-size: 1.05rem; color: var(--text-muted); }
+.stats-title strong { color: var(--text-pure); font-weight: 800; letter-spacing: 1px;}
+.stats-fragments { font-size: 0.95rem; font-weight: 700; color: var(--text-muted); }
 
 .progress-track {
-    width: 100%; height: 6px; background: rgba(0, 0, 0, 0.25);
+    width: 100%; height: 6px; background: rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(250, 250, 250, 0.08); border-radius: 10px; overflow: hidden;
 }
 body.light-theme .progress-track { background: rgba(0, 0, 0, 0.08); }
@@ -278,65 +254,22 @@ body.light-theme .level-item { background: rgba(0, 0, 0, 0.02); }
 .history-name { font-size: 0.95rem; margin-bottom: 2px; }
 .history-result { font-size: 0.85rem; color: var(--text-muted); }
 
-/* ================= 4. نافذة الإعدادات المنبثقة (Modal Interface) ================= */
-.modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-    display: flex; justify-content: center; align-items: center;
-    opacity: 0; visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 2000;
-}
-.modal-overlay.show { opacity: 1; visibility: visible; }
-
-.modal-card {
-    width: 90%; max-width: 400px; padding: 25px 30px;
-    border-radius: var(--radius-medium); position: relative;
-    transform: scale(0.9); transition: transform 0.3s ease;
-}
-.modal-overlay.show .modal-card { transform: scale(1); }
-
-.modal-header { display: flex; justify-content: space-between; align-items: center; }
-.modal-header h3 { font-size: 1.2rem; font-weight: 800; color: var(--text-pure); }
-
-.close-modal-btn {
-    background: transparent; border: none; color: var(--text-pure); cursor: pointer;
-    display: flex; align-items: center; justify-content: center; transition: transform 0.2s;
-}
-.close-modal-btn:hover { transform: scale(1.1); color: var(--text-muted); }
-
-.modal-body { margin-top: 24px; }
-.setting-row { display: flex; justify-content: space-between; align-items: center; }
-.setting-label { font-size: 1rem; font-weight: 500; color: var(--text-pure); }
-
-/* زر التبديل التفاعلي (Toggle Switch) */
-.theme-switch { position: relative; display: inline-block; width: 56px; height: 30px; }
-.theme-switch input { opacity: 0; width: 0; height: 0; }
-.slider {
-    position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--glass-border);
-    transition: .4s; border-radius: 34px;
-}
-.slider:before {
-    position: absolute; content: ""; height: 22px; width: 22px; left: 3px; bottom: 3px;
-    background-color: var(--text-pure); transition: .4s; border-radius: 50%;
-    box-shadow: 0 0 8px var(--snow-glow);
-}
-input:checked + .slider { background-color: rgba(120, 165, 200, 0.2); border-color: var(--glass-border); }
-input:checked + .slider:before { transform: translateX(-26px); }
-
-/* ================= التجاوب الكامل مع الشاشات الصغيرة ================= */
+/* ================= التجاوب مع الجوال ================= */
 @media (max-width: 1200px) { .organic-grid { grid-template-columns: 80px 1fr 280px; } .stats-box { width: 80%; } }
 @media (max-width: 992px) {
     .dashboard-wrapper { padding: 16px; padding-bottom: 100px; }
     .organic-grid { grid-template-columns: 1fr; grid-template-rows: auto auto auto; height: auto; gap: 20px; }
     .col-center-main { min-height: 420px; }
-    .protrusion-wrapper, .stats-box { position: static; width: 100%; height: auto; padding: 20px; border-radius: var(--radius-organic); border: 1px solid var(--glass-border); transform: none; margin-top: 16px; }
-    .protrusion-wrapper::before, .protrusion-wrapper::after, .stats-box::before, .stats-box::after { display: none; }
-    .entity-showcase { flex-direction: column; justify-content: center; padding: 30px; }
+    
+    /* إلغاء القصات المعقدة في الشاشات الصغيرة لتجنب تشوه التصميم */
+    .entity-showcase { clip-path: none; -webkit-mask-image: none; mask-image: none; }
+    .stats-box { position: static; width: 100%; height: auto; padding: 20px; border-radius: var(--radius-organic); margin-top: 16px; }
+    .curve-filler-top, .curve-filler-right, .protrusion-arrow-box { display: none; }
     .snow-glow-btn { position: static; margin-top: 20px; width: 100%; max-width: none; text-align: center; }
+    
     .col-right-sidebar { position: fixed; bottom: 0; left: 0; width: 100%; flex-direction: row; justify-content: space-around; padding: 10px; z-index: 1000; background: var(--glass-bg); border-top: 1px solid var(--glass-border); }
     .nav-capsule { flex-direction: row; width: 100%; justify-content: space-around; padding: 5px; background: transparent; border: none; box-shadow: none; }
     .avatar-circle { display: none; }
+    .settings-popover { top: auto; bottom: 100%; right: 50%; transform: translateX(50%) translateY(20px); }
+    .settings-popover.show { transform: translateX(50%) translateY(-10px); }
 }
