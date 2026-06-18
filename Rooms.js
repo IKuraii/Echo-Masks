@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
-    // 1. البيانات الديناميكية (Dynamic Injection)
+    // 1. البيانات الديناميكية (إحصائيات وسجل)
     // ==========================================
     const playerData = {
         name: "Shadow",
         stats: {
-            maskLevel: 18,        // تم تحديث المسمى برمجياً
-            resonanceProgress: 74, // نسبة تعبئة الشريط (%)
-            soulFragments: "2,890"
+            maskLevel: 24,       // مستوى القناع
+            resonanceProgress: 82, // نسبة التعبئة (%)
+            soulFragments: "3,150"
         },
         history: [
             { opponent: "الخصم المجهول", result: "انتصار سحيق", isWin: true },
@@ -16,11 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
     };
 
-    // تعبئة إحصائيات مستوى القناع
+    // تعبئة البيانات في واجهة الإحصائيات
     document.getElementById('maskLevelText').textContent = `Lv. ${playerData.stats.maskLevel}`;
     document.getElementById('soulFragmentsText').textContent = `شظايا الأرواح: ${playerData.stats.soulFragments}`;
     
-    // إطلاق حركة شريط التقدم الفضي/الثلجي
+    // حركة شريط التقدم السلسة
     setTimeout(() => {
         const progressFill = document.getElementById('resonanceProgressFill');
         if (progressFill) {
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 300);
 
-    // حقن سجل المواجهات
+    // حقن بيانات سجل المواجهات
     document.getElementById('historyName1').textContent = `ضد: ${playerData.history[0].opponent}`;
     document.getElementById('historyResult1').textContent = playerData.history[0].result;
     document.getElementById('historyResult1').style.color = playerData.history[0].isWin ? 'var(--text-pure)' : 'var(--text-muted)';
@@ -39,45 +39,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ==========================================
-    // 2. إدارة نافذة الإعدادات والوضع الكريستالي
+    // 2. إدارة نافذة الإعدادات (Popover) وتبديل الصور
     // ==========================================
     const settingsNavIcon = document.getElementById('settingsNavIcon');
-    const settingsModal = document.getElementById('settingsModal');
-    const closeModalBtn = document.getElementById('closeModalBtn');
+    const settingsPopover = document.getElementById('settingsPopover');
     const themeToggleCheckbox = document.getElementById('themeToggleCheckbox');
+    const entityShowcase = document.getElementById('entityShowcase');
 
-    // فتح النافذة المنبثقة عند النقر على الترس
+    // إظهار/إخفاء النافذة عند النقر على الترس
     if (settingsNavIcon) {
-        settingsNavIcon.addEventListener('click', () => {
-            settingsModal.classList.add('show');
+        settingsNavIcon.addEventListener('click', (e) => {
+            e.stopPropagation(); // منع إغلاق النافذة فوراً
+            settingsPopover.classList.toggle('show');
         });
     }
 
-    // إغلاق النافذة عند النقر على علامة X
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', () => {
-            settingsModal.classList.remove('show');
-        });
-    }
-
-    // إغلاق النافذة عند النقر خارج الصندوق الزجاجي
+    // إغلاق النافذة عند النقر في أي مكان آخر خارجها
     window.addEventListener('click', (e) => {
-        if (e.target === settingsModal) {
-            settingsModal.classList.remove('show');
+        if (settingsPopover && !settingsPopover.contains(e.target) && !settingsNavIcon.contains(e.target)) {
+            settingsPopover.classList.remove('show');
         }
     });
 
-    // تبديل الوضع بين المظلم والمضيء الكريستالي عبر متغيرات الـ CSS
+    // تبديل الوضع الكريستالي وصورة الكيان
     if (themeToggleCheckbox) {
         themeToggleCheckbox.addEventListener('change', function() {
             if (this.checked) {
+                // تفعيل الوضع المضيء الكريستالي
                 document.body.classList.add('light-theme');
+                // تغيير صورة الكيان للمضيئة
+                entityShowcase.style.backgroundImage = "url('MainThem(Light).png')";
             } else {
+                // العودة للوضع المظلم
                 document.body.classList.remove('light-theme');
+                // استرجاع صورة الكيان المظلمة
+                entityShowcase.style.backgroundImage = "url('MainTheme.png')";
             }
         });
     }
-
 
     // ==========================================
     // 3. تفاعل أيقونات شريط التنقل
@@ -85,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navIcons = document.querySelectorAll('.nav-icon');
     navIcons.forEach(icon => {
         icon.addEventListener('click', function() {
-            // لا نطبق الحالة النشطة على الترس لأنه يفتح نافذة منبثقة فقط
+            // استثناء أيقونة الإعدادات من التحديد المباشر
             if (this.id === 'settingsNavIcon') return;
             
             navIcons.forEach(i => i.classList.remove('active'));
